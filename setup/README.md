@@ -73,14 +73,13 @@
 
 - However, before installing Active Directory, I first need to make sure the Domain Controller (DC) has a static IP address before promoting it. I opened `powershell` and typed `ipconfig /all`. We can see that the IP address assigned to my VM was via DHCP and there is a lease set which means it will expire tomorrow and can have a different IP address and so it is vital to set it to a static IP address so the Client VM can join it and not have trouble finding it at a later time
 
-<img width="1167" height="681" alt="image" src="https://github.com/user-attachments/assets/d25fb251-2f70-4629-a915-05fc62ef0577" />
+<img width="1128" height="658" alt="image" src="https://github.com/user-attachments/assets/71986c96-94a4-46b0-87de-aa073ae3a1ed" />
 
 - I successfully changed the IP address
 ```
-New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress <IP address> -PrefixLength 24 -DefaultGateway <IP address>
+New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.200 -PrefixLength 24 -DefaultGateway <IP address>
 ```
-
-<img width="1116" height="596" alt="image" src="https://github.com/user-attachments/assets/bb8c294d-9c9e-4dae-813a-89a1a0393bea" />
+<img width="1103" height="587" alt="image" src="https://github.com/user-attachments/assets/b24efc8a-7cf9-4488-af77-3114d4545275" />
 
 - Then, I configured the DNS server to point to the Domain Controller (`192.168.1.100` on the DC, and the DC's static IP on client machines). When the server is promoted to a Domain Controller, it also becomes a DNS server. Active Directory Domain Services (AD DS) registers SRV records in DNS, which advertise services such as LDAP and Kerberos. The Domain Controller queries its own DNS to locate these services, while client computers query the DC's DNS server for the SRV records to discover the Domain Controller before joining the domain or authenticating
 ```
@@ -91,6 +90,5 @@ Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.1
 
 - Both the IP address and DNS server have been configured
 
-<img width="1034" height="606" alt="image" src="https://github.com/user-attachments/assets/a88503a6-6448-4bb1-abb4-bff70b55b9f3" />
+<img width="1020" height="601" alt="image" src="https://github.com/user-attachments/assets/6781f681-b07c-4b9c-9f95-2bdf67b309ed" />
 
-- 
