@@ -36,7 +36,9 @@ The lab focuses on foundational Active Directory concepts including domain contr
 * CPU: 2 vCPUs
 * RAM: 4 GB
 * Storage: 40–50 GB
-* Network: Connected to `vmbr1` (Fully Isolated Network)
+* Network:
+  * NIC 1: Connected to `vmbr1` (Primary - Internal Domain Network)
+  * NIC 2: Connected to `vmbr0` (Temporary - Internet access for updates/activation)
 * Operating System: Windows Server Evaluation
 
 #### VM 2: Domain-Joined Client
