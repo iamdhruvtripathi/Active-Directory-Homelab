@@ -35,7 +35,7 @@ The lab focuses on foundational Active Directory concepts including domain contr
 #### VM 1: Domain Controller
 * CPU: 2 vCPUs
 * RAM: 4 GB
-* Storage: 40–50 GB
+* Storage: 30-40 GB
 * Network:
   * NIC 1: Connected to `vmbr1` (Primary - Internal Domain Network)
   * NIC 2: Connected to `vmbr0` (Temporary - Internet access for updates/activation)
@@ -44,7 +44,7 @@ The lab focuses on foundational Active Directory concepts including domain contr
 #### VM 2: Domain-Joined Client
 * CPU: 2 vCPUs
 * RAM: 4–6 GB
-* Storage: 40–50 GB
+* Storage: 30-40 GB
 * Network: Connected to `vmbr1` (Fully Isolated Network)
 * Operating System: Windows 10/11 Enterprise Evaluation
 
