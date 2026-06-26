@@ -53,4 +53,4 @@ The lab focuses on foundational Active Directory concepts including domain contr
 * Isolated Virtual Bridge (`vmbr1`): A dedicated virtual switch inside Proxmox with no physical port attachment, isolating all AD traffic, DNS, and future simulation/security tools
 * Static IP Addressing: Both VMs will use static IPs within a dedicated private subnet assigned to the `vmbr1` interfaces
 * DNS Services: Primary DNS for all domain assets is hosted on the Domain Controller via `vmbr1`
-* Controlled Internet Access: The Domain Controller temporarily uses a secondary vmbr0 interface for updates and software downloads. Once setup is complete, the interface is removed or disabled, ensuring the lab operates entirely on the isolated vmbr1 network
+* Controlled Internet Access: The Domain Controller temporarily uses a secondary `vmbr0` interface for updates and software downloads. Once setup is complete, the interface is removed or disabled, ensuring the lab operates entirely on the isolated vmbr1 network
