@@ -52,10 +52,3 @@ The lab focuses on foundational Active Directory concepts including domain contr
 * Static IP Addressing: Both VMs will use static IPs within a dedicated private subnet assigned to the `vmbr1` interfaces
 * DNS Services: Primary DNS for all domain assets is hosted on the Domain Controller via `vmbr1`
 * Controlled Internet Access: Internet connectivity for updates and software downloads is restricted to a secondary interface (`vmbr0`) on the Domain Controller, ensuring the client remains fully isolated
-
-### Learning Outcomes
-
-* Deploy and configure Active Directory Domain Services
-* Create and manage organizational units (OUs)
-* Manage domain users and groups
-* Configure Group Policy Objects (GPOs)
