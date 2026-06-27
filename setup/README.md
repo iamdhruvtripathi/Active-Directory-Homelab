@@ -77,7 +77,7 @@
 
 - I successfully changed the IP address
 ```
-New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.200 -PrefixLength 24 -DefaultGateway <IP address>
+New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.200 -PrefixLength 24 -DefaultGateway 192.168.1.254
 ```
 <img width="1103" height="587" alt="image" src="https://github.com/user-attachments/assets/b24efc8a-7cf9-4488-af77-3114d4545275" />
 
