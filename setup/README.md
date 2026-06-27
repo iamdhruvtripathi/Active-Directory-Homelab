@@ -1,4 +1,4 @@
-<img width="941" height="585" alt="image" src="https://github.com/user-attachments/assets/912e69ef-595c-422e-aa7a-e21d03548dff" /># Setup
+# Setup
 - This part details about downloading and uploading the ISO, creating the Domain Controller and the Client VM
 
 ## Downloading the Windows Server 2025 ISO
