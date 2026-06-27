@@ -92,7 +92,7 @@ Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.1
 
 <img width="1020" height="601" alt="image" src="https://github.com/user-attachments/assets/6781f681-b07c-4b9c-9f95-2bdf67b309ed" />
 
-- Then, I did a quick server name
+- Then, I renamed the server's name to `DC01`
 ```
 Rename-Computer -NewName "DC01" -Restart
 ```
