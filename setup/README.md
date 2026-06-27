@@ -1,4 +1,4 @@
-# Setup
+<img width="941" height="585" alt="image" src="https://github.com/user-attachments/assets/912e69ef-595c-422e-aa7a-e21d03548dff" /># Setup
 - This part details about downloading and uploading the ISO, creating the Domain Controller and the Client VM
 
 ## Downloading the Windows Server 2025 ISO
@@ -149,3 +149,27 @@ Rename-Computer -NewName "DC01" -Restart
 - Once we login, we can see the `AD DS`, `DNS` and `File and Storage Services` on the left side
 
 <img width="916" height="576" alt="image" src="https://github.com/user-attachments/assets/761eba0a-bc3a-43c5-9038-de755aa68359" />
+
+- Next, I clicked on `Active Directory Users and Computers`
+
+<img width="909" height="572" alt="image" src="https://github.com/user-attachments/assets/535d1572-6591-4207-bfa1-4671138b3661" />
+
+- We are now creating a new user account
+
+<img width="919" height="571" alt="image" src="https://github.com/user-attachments/assets/571c52a2-6702-4c4e-9d63-d670d9f6583e" />
+
+- I put the name `Jack` for the first name and logon name `jack`
+
+<img width="918" height="575" alt="image" src="https://github.com/user-attachments/assets/08102008-dfd2-4af1-8dd9-54f705cfaff0" />
+
+- For test purposes, I unchecked the `User must change password at next logon` and checked the box `Password never expires`
+
+<img width="909" height="570" alt="image" src="https://github.com/user-attachments/assets/e9a2b651-f400-4b6e-b699-cfea46fe0c4e" />
+
+- We have our domain user account ready
+
+<img width="906" height="565" alt="image" src="https://github.com/user-attachments/assets/7b3d5077-a157-45d1-8846-f03da100cf9a" />
+
+- We can see `Jack` in the Users OU (Organizational Unit which is basically a folder)
+
+<img width="941" height="585" alt="image" src="https://github.com/user-attachments/assets/e6f2e41c-8ac2-4bf1-92a4-9df1f1d845e8" />
