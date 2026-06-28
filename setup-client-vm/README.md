@@ -74,7 +74,7 @@
 
 <img width="1097" height="681" alt="image" src="https://github.com/user-attachments/assets/b35ecd41-5e77-44a8-b96d-bf17ce55359f" />
 
-- Then, I signed in with the same username and password I created as the admin on the domain controller (created the `Jack` domain user)
+- Then, I signed in with the same username and password I created as the admin on the domain controller (created the `Jack` domain user account)
 
 <img width="1031" height="644" alt="image" src="https://github.com/user-attachments/assets/ee3f37c0-791a-44ea-bd99-1d02d706459c" />
 
