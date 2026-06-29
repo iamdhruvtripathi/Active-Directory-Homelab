@@ -83,7 +83,7 @@ New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.200 -PrefixLeng
 
 - Then, I configured the DNS server to point to the Domain Controller (`192.168.1.100` on the DC, and the DC's static IP on client machines). When the server is promoted to a Domain Controller, it also becomes a DNS server. Active Directory Domain Services (AD DS) registers SRV records in DNS, which advertise services such as LDAP and Kerberos. The Domain Controller queries its own DNS to locate these services, while client computers query the DC's DNS server for the SRV records to discover the Domain Controller before joining the domain or authenticating
 ```
-Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.1.100
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.1.200
 ```
 
 <img width="908" height="537" alt="image" src="https://github.com/user-attachments/assets/dd20fa11-eca1-470f-91ae-01bc4b5ba0ae" />
