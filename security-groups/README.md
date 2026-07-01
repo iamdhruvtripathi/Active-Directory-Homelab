@@ -27,5 +27,3 @@
 - We can see it was successful and I repeated the same steps for the `IT Department`
 
 <img width="961" height="599" alt="image" src="https://github.com/user-attachments/assets/c29d807c-f4c8-45c1-9253-68db2a686149" />
-
-- 
