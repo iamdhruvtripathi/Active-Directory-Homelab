@@ -43,7 +43,7 @@
 
 <img width="962" height="601" alt="image" src="https://github.com/user-attachments/assets/f0363830-3b73-41b6-9556-59601a64b7dd" />
 
-- When I ran the command below again, it worked successfully. Note that the output is similar but the top half shows which DNS server the computer was asking the information for (which is the DC itself) and the bottom half is the hostname and the IP address
+- Before I ran this command I did `ipconfig /flushdns` to clear the computers local DNS resolver cache and I ran the command below again, it worked successfully. Note that the output is similar but the top half shows which DNS server the computer was asking the information for (which is the DC itself) and the bottom half is the hostname and the IP address
 
 <img width="958" height="593" alt="image" src="https://github.com/user-attachments/assets/38775d39-4a1d-4982-9c8c-15da15e8e4c5" />
 
