@@ -58,7 +58,7 @@
 ### The `Remove-ADUser` command
 - Remember `barry`? Well, he left the company and so we don't need his information anymore. Let's delete him from the Users folder. If we do the following
 
-<img width="564" height="354" alt="image" src="https://github.com/user-attachments/assets/b3b06da1-b3a5-41c5-84c9-2e96f96122d9" />
+<img width="1187" height="740" alt="image" src="https://github.com/user-attachments/assets/909b0250-0842-49f3-8808-0be47f6bc2d1" />
 
 - We can see `barry` is gone. We will miss you `barry`
 <img width="1184" height="735" alt="image" src="https://github.com/user-attachments/assets/8dd31f76-e2fa-489f-893f-9857d237d175" />
