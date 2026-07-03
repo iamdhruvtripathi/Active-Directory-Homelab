@@ -84,13 +84,17 @@
 - To configure registry settings inside the GPO, we can use the following commands below and I will explain them. The first one is below
 <img width="1180" height="737" alt="image" src="https://github.com/user-attachments/assets/6ff0deb2-4766-4f55-bade-f1958d0f2922" />
 
-- Basically what this one is doing is targeting the `ScreenSaverActive` registry setting in Windows Registry that determines whether or not the screen saver is on. Here, we set it to the value of `1` or "on" and the reason we are doing this is because if a user walks away from their computer, the screen automatically locks to prevent unauthorized access. It is located in the path where the `-Key` is. That path is where all the registry settings are stored in Windows registry specifically the Desktop settings
-- Note that this doesn't actually lock the computer but rather enables the screen saver because this is often paired with two other registry keys as seen below
+- Basically, this setting targets the `ScreenSaverActive` registry value in the Windows Registry, which controls whether the screen saver is enabled. Setting it to `1` turns the screen saver on. The idea is that if a user walks away from their computer, the screen saver can start after a period of inactivity, helping protect the system from unauthorized access. This registry value is stored under the registry path specified by the `-Key` parameter, which contains the user's desktop-related settings
+- It's important to note that this setting doesn't actually lock the computer by itself. It only enables the screen saver. In most environments, it's paired with two additional registry settings where one that specifies how long Windows waits before starting the screen saver, and another that requires the user to enter their password when resuming from the screen saver
 
 <img width="1182" height="740" alt="image" src="https://github.com/user-attachments/assets/10a8d807-c5df-4144-8e9e-cba7e3608725" />
 
-- Now, this registry setting allows the computer to sit idle for 60 seconds before the `ScreenSaverActive` key kicks in. We have the last one below
+- Now, this registry setting allows the computer to sit idle for 60 seconds before starting the screensaver. We have the last one below
 
 <img width="1182" height="739" alt="image" src="https://github.com/user-attachments/assets/48552d6e-4add-4146-aec7-d31b7c174f6e" />
 
-- This registry setting is basically saying if the 60 seconds are up and the `ScreenSaverActive` key is enabled, it locks the computer and when the user comes back, they are required to enter the password to log back in
+- This registry setting is basically saying that once the 60 seconds are up, if `ScreenSaverActive` is enabled and the screen saver is configured to require a password (value of `1` in this case means yes, it requires a password) on resume, the user's session is locked. When the user comes back, they must enter their password to continue
+
+- Now, how are these registry settings actually applied? Whenever, a computer uses LDAP (Lightweight Directory Access Protocol) to talk to the AD DS to get which GPOs apply to that specific computer and where they are located. However, LDAP doesn't actually return the actual GPO data, instead the computer has the GPOs properties and a specific attribute called the `gPCFileSysPath`
+- The `gPCFileSysPath` holds the actual file paths to where the GPOs actual data (registry settings, scripts, etc.) is located in a folder called `SYSVOL`
+- After this, the computer uses `SMB` (Server Message Block) to fetch the GPO data and apply the changes to itself. The registry settings of the client are overwritten (not always but in this case they are) and the GPO overwrites it to the specified `-Key` path
