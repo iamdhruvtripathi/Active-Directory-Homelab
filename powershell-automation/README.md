@@ -13,7 +13,7 @@
 <img width="1181" height="737" alt="image" src="https://github.com/user-attachments/assets/6a2da0ed-78ae-4df6-bab5-8813de3f7259" />
 
 ### Creating Objects
-- Not only can we create store one value, we can store an object. Let's create Alice's "profile"
+- Not only can we store one value, we can store an object. Let's create Alice's "profile"
 <img width="1181" height="739" alt="image" src="https://github.com/user-attachments/assets/2ef85356-6602-474a-a9ff-d2fe9b43b7d0" />
 
 ### Loops
