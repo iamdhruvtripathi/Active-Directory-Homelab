@@ -42,6 +42,7 @@
 ### The `ForEach-Object` command
 - I know we already looked at loops but this particular one works well with `|` pipes
 <img width="1182" height="738" alt="image" src="https://github.com/user-attachments/assets/d1cbb875-0f2b-4800-9cdf-b45695655c2d" />
+
 - Note: The `$_` means the current item it is at
 
 ## If-else statements
