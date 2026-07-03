@@ -64,7 +64,7 @@
 <img width="1184" height="735" alt="image" src="https://github.com/user-attachments/assets/8dd31f76-e2fa-489f-893f-9857d237d175" />
 
 ### The `Set-ADUser` command
-- Let's say `Jack` gets a promotion and we update his job title attribute. For now, `Jack` has no title or `Description` but we can set it
+- Let's say `Jack` gets a promotion and we update his job title attribute. For now, `Jack` has no `title` or `Description` but we can set it
 <img width="1184" height="735" alt="image" src="https://github.com/user-attachments/assets/a551d1db-988b-4315-bdad-d78ab7ff5d41" />
 
 ### Creating and Linking GPOs
