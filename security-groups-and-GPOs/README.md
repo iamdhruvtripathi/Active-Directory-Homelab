@@ -2,7 +2,7 @@
 - Now that we are finished with the setup of both the DC and Client VM and we also have created 4 users, OUs, it is time to create and learn about security groups
 
 ## What are Security Groups?
-- Security groups are collections of users and computers to which permissions can be assigned. Instead of assigning permissions to each user individually, permissions are assigned to the security group, and all members of that group inherit those permissions. For example, if a security group is denied access to a particular folder or file and Alisha is a member of that group, she will not be able to access it unless I remove her from that specific group
+- Security groups are collections of users and computers to which permissions can be assigned. Instead of assigning permissions to each user individually, permissions are assigned to the security group, and all members of that group inherit those permissions. For example, if a security group is denied access to a particular folder or file and `Alisha` is a member of that group, she will not be able to access it unless I remove her from that specific group
 
 ## Making the Security Groups
 - To make the group, I right clicked on the `HR` OU > `New` > `Group`
