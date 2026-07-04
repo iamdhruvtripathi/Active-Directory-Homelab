@@ -1,7 +1,7 @@
 # Windows Server Roles
 - We are now going to install several Windows roles including the Active Directory Certificate Services (AD CS) & DHCP server
 
-## Installing the AD CS, DHCP, File and Print server
+## Installing the AD CS & DHCP
 - First, I clicked on the `Add Roles and Features`
 
 <img width="965" height="602" alt="image" src="https://github.com/user-attachments/assets/343242d0-f9b4-44b1-9b82-45359951d18a" />
