@@ -1,4 +1,4 @@
-# Windows Server Roles (Part 1)
+# Windows Server Roles (Part 2)
 - We are now going to install several Windows roles including the Active Directory Certificate Services (AD CS) & DHCP server
 
 ## Building the shared network folder
