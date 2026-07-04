@@ -71,3 +71,6 @@
 
 - If we do `ipconfig /all`, we can see it was assigned by the DHCP server and not manually assigned. You can see I also set the lease for `8` days
 <img width="956" height="596" alt="image" src="https://github.com/user-attachments/assets/79e5b283-eb2c-4e1f-b43f-ba47edd4df62" />
+
+## Creating a Shared Network File
+- Now, we are done with the DHCP configurations, let's take a look at the File server. The File server is activated but we need to build a shared network folder on the DC. This will act as an enterprise style file share that users such as `Jack` can instantly access right from their Windows 11 file explorer
