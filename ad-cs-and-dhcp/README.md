@@ -1,5 +1,6 @@
 # Windows Server Roles (Part 1)
-- We are now going to install several Windows roles including the Active Directory Certificate Services (AD CS) & DHCP server
+- We are now going to install several Windows roles including the Active Directory Certificate Services (AD CS), DHCP server, File Server and Print Server
+- Note: For organization, the AD DS and DHCP Server installation and configuration are on this `README.md` and the File Server and Print Server are on this [README.md](https://github.com/iamdhruvtripathi/Active-Directory-Homelab/blob/main/file-and-print-server/README.md)
 
 ## Installing the AD CS & DHCP
 - First, I clicked on the `Add Roles and Features`
