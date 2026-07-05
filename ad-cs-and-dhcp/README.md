@@ -72,3 +72,46 @@
 
 - If we do `ipconfig /all`, we can see it was assigned by the DHCP server and not manually assigned. You can see I also set the lease for `8` days
 <img width="956" height="596" alt="image" src="https://github.com/user-attachments/assets/79e5b283-eb2c-4e1f-b43f-ba47edd4df62" />
+
+## Creating a custom Web Server certificate template
+- I am now going to be working on the `AD CS` portion of this project. Since our root CA is already authorized, we are going to create a web server certificate template that can be used to issue digital certificates. First, let's duplicate the standard Windows web server template because it is locked down by default. I right clicked on `Certificate Templates` and selected `Manage`
+<img width="962" height="599" alt="image" src="https://github.com/user-attachments/assets/170c6ecc-2267-4afe-b142-76d96fa39043" />
+
+- Then, I started filling out the information as seen below
+<img width="964" height="603" alt="image" src="https://github.com/user-attachments/assets/5d82f064-b0e2-4478-a0ab-b6160c22a376" />
+
+- Same here as well. I checked the box because it lets us move the certificate over to Proxmox, Linux VMs, or Splunk later
+<img width="961" height="603" alt="image" src="https://github.com/user-attachments/assets/22b2491b-9f45-412e-88ec-8ecfaaef7f64" />
+
+- I made sure the `Authenticated Users` are enrolled
+<img width="963" height="600" alt="image" src="https://github.com/user-attachments/assets/898a5cfc-a15a-45c3-a43a-1c43d28c1708" />
+
+- Next, we click on `Certificate template to issue`
+<img width="964" height="603" alt="image" src="https://github.com/user-attachments/assets/76c61111-863d-46e7-9d50-21baf9f70285" />
+
+- We see our `Lab Web Server` certificate and click `OK`
+<img width="964" height="602" alt="image" src="https://github.com/user-attachments/assets/854a7575-3e0e-4e81-a24f-780e52ea90de" />
+
+## Requesting a Certificate
+- Now that we have created a template, it is time to actually request a certificate from the CA. I used the Microsoft Management Console
+<img width="957" height="596" alt="image" src="https://github.com/user-attachments/assets/e892612c-2143-4d7a-bb2d-2248a626cf35" />
+
+- I then clicked `Certificates` > `Add >` > `Computer Account`
+
+<img width="958" height="601" alt="image" src="https://github.com/user-attachments/assets/c4647c30-073b-4b69-b7f9-ea2f152d3c58" />
+
+- Then, we go back and select the following options
+
+<img width="956" height="600" alt="image" src="https://github.com/user-attachments/assets/1cbcd4f7-3bf9-4666-bd32-e3380970b1e4" />
+
+- I then clicked on the blue link to define the common name (identity) of this certificate so a browser actually knows what server it belongs to
+<img width="961" height="600" alt="image" src="https://github.com/user-attachments/assets/57da9245-77a5-4533-b018-c4122ce2b3f6" />
+
+- Filled in both these values
+<img width="963" height="599" alt="image" src="https://github.com/user-attachments/assets/ae5c03f7-a1e9-41f1-afec-670aca247ad5" />
+
+- We can see below we have successfully installed the certificate
+<img width="963" height="599" alt="image" src="https://github.com/user-attachments/assets/1b1b4296-63ba-4cbb-83bf-06d75aeea92a" />
+
+- We can see our beautiful certificate sitting here :D
+<img width="961" height="598" alt="image" src="https://github.com/user-attachments/assets/22ed34b2-3f79-4c5d-be21-9b83a6a1b8b0" />
