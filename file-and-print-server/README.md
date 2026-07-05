@@ -60,4 +60,36 @@
 
 <img width="959" height="599" alt="image" src="https://github.com/user-attachments/assets/afa283f7-6fc8-407d-88cc-60de8b4ef732" />
 
+## Creating and Sharing the Printer
+- Now, I am going to work on the Print Server portion of this project. First, we actually need to create a ghost "printer". What I mean by this is I don't actually have a real printer, so we will need to create a fake one just for learning purposes. First let's click on `Print management` and right click and select `Add printer` and then the `Network Printer Installation Wizard` pops up
 
+<img width="960" height="599" alt="image" src="https://github.com/user-attachments/assets/1ab57200-e512-4e0a-bb66-70e0b83310c0" />
+
+- I then clicked on `Add a new printer using an existing port`
+<img width="962" height="600" alt="image" src="https://github.com/user-attachments/assets/72a0aa09-2905-40ac-9269-8c0702468e59" />
+
+- I then clicked on `Install a new driver`
+<img width="963" height="602" alt="image" src="https://github.com/user-attachments/assets/244bb467-3e06-4e2a-9d2a-65ec46a1b432" />
+
+- Clicking through the options I arrived here and selected a generic Microsoft printer driver to add
+
+<img width="963" height="605" alt="image" src="https://github.com/user-attachments/assets/a8b0a509-1746-46d6-86bf-7007d5ab3bdf" />
+
+- Added all the necessary information
+
+<img width="964" height="600" alt="image" src="https://github.com/user-attachments/assets/ca19f608-1a0e-4b89-95df-a52fbc241918" />
+
+- We have successfully added the printer as seen below
+<img width="965" height="603" alt="image" src="https://github.com/user-attachments/assets/d6ea1279-26a7-4f73-ae0e-630f23bb8ef6" />
+
+## Connecting to the Network Printer from the Windows Client
+- Now, we can see how an enterprise user connects to it over the network. Below, we can see the printer being shared successfully
+
+<img width="956" height="598" alt="image" src="https://github.com/user-attachments/assets/cce1e2b1-5f5e-4d70-bf60-4e2159c79abe" />
+
+- I typed a message into `Notepad` and then hit `Ctrl + P` and we can see our printer being listed as one of the options
+
+<img width="960" height="598" alt="image" src="https://github.com/user-attachments/assets/54513457-239d-4c13-b787-6c4860f73ed1" />
+
+- I clicked `Print` and we can see the print job listed in the queue when we hop over to the DC. Note that it is saying `Error` but that is normal because there is no printer actually plugged into the port on my Proxmox server host
+<img width="962" height="599" alt="image" src="https://github.com/user-attachments/assets/6ade6c09-70b4-44ac-88a8-05f9e49ec4f3" />
