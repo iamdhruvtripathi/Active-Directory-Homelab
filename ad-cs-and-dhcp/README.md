@@ -96,7 +96,7 @@
 - Now that we have created a template, it is time to actually request a certificate from the CA. I used the Microsoft Management Console
 <img width="957" height="596" alt="image" src="https://github.com/user-attachments/assets/e892612c-2143-4d7a-bb2d-2248a626cf35" />
 
-- I then clicked `Certificates` > `Add >` > `Computer Account`
+- I then clicked `Certificates` > `Add >` > `Computer Account`. The reason for this is because the certificate is being issued to the domain controller rather than to my user account. This allows services running on `DC01`, such as a web server like `Apache`, to use the `DC01`'s certificate even when I am not logged in
 
 <img width="958" height="601" alt="image" src="https://github.com/user-attachments/assets/c4647c30-073b-4b69-b7f9-ea2f152d3c58" />
 
@@ -104,7 +104,7 @@
 
 <img width="956" height="600" alt="image" src="https://github.com/user-attachments/assets/1cbcd4f7-3bf9-4666-bd32-e3380970b1e4" />
 
-- I then clicked on the blue link to define the common name (identity) of this certificate so a browser actually knows what server it belongs to
+- I then clicked on the blue link to define the common name (identity) of this certificate so a browser actually knows what server it belongs to. If we didn't click this option, the CA would sign a blank certificate with no name that the browser wouldn't trust and it would be useless
 <img width="961" height="600" alt="image" src="https://github.com/user-attachments/assets/57da9245-77a5-4533-b018-c4122ce2b3f6" />
 
 - Filled in both these values
