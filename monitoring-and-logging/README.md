@@ -1,4 +1,4 @@
-# Monitoring & Logging
+# Windows Event Logs
 - Well... we are here now. Look at us. We developed a fully mini enterprise environment with a Client VM, DC, DHCP server, DNS server, File Server, AD, AD DS, AD CS, and a Print server. Now is the time to move to focusing on Windows Event Logs and auditing
 
 ## What is Events Viewer?
