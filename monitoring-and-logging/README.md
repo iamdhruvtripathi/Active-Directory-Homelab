@@ -83,8 +83,3 @@
 - Now that `Barry` is gone, I cleared the Windows Security audit log and this event pops up
 
   <img width="962" height="601" alt="image" src="https://github.com/user-attachments/assets/2ad36ec3-421a-4700-a21d-7c779ded04cd" />
-
-## Event ID `4625`
-- This last Event ID shows a failed logon and I tried to brute-force my way into `Jack`'s account
-
-  <img width="955" height="597" alt="image" src="https://github.com/user-attachments/assets/cef75919-8917-408a-a504-d81a399a552b" />
