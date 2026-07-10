@@ -1,4 +1,4 @@
-<img width="963" height="603" alt="image" src="https://github.com/user-attachments/assets/086c6370-ed56-4434-a643-a79cfa7fd44c" /># Sysmon
+# Sysmon
 - Since we already have looked at some of the most important Windows Events log, we shall also take a look at some captured advanced telemetry like `Event ID 1` or `Event ID 3`
 
 ## What is Sysmon?
