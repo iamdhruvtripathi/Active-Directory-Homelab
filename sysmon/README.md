@@ -11,7 +11,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/463fc8f6-46b4-4692-b1cc-1b9762e3cd72" />
 </p>
 
-- Another thing is we can install SwiftOnSecurity's configuration file. The reason for this is because Sysmon generates a lots of logs which can flood our system and so we can specify which specific processes we want to log and the ones we want to ignore
+- Another thing is we can use SwiftOnSecurity's configuration file. The reason for this is because Sysmon generates a lots of logs which can flood our system and so we can specify which specific processes we want to log and the ones we want to ignore
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/489c4715-dc92-4faf-bf71-944398fdd15d" />
