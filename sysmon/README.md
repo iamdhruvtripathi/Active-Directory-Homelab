@@ -42,7 +42,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/573b2d38-37e2-4510-9655-8a346ea840cc" />
 </p>
 
-- I opened up `Event Viewer` > `Applications and Services Logs` > `Microsoft` > `Windows` > `Sysmon` > `Operational`. We can see some of the logs here. `Event ID 1` tracks process creation as well as who ran it, exact command-line argument used, and the file cryptographic hash, `Event ID 3` tracks whenever a process talks over the network and records the source/destination IPs and ports, `Event ID 11` tracks when files are created and lastly, `Event ID 22` tracks DNS queries
+- I opened up `Event Viewer` > `Applications and Services Logs` > `Microsoft` > `Windows` > `Sysmon` > `Operational`. We can see some of the logs here. `Event ID 1` tracks process creation as well as who ran it, exact command-line argument used, and the file cryptographic hash, `Event ID 3` tracks whenever a process talks over the network and records the source/destination IPs and ports, `Event ID 11` tracks when files are created and lastly, `Event ID 22` tracks DNS queries. Note that `Event ID 3` and `Event ID 11` are not shown below but these are pretty common IDs to watch out for
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/82591413-e559-4d70-b59a-dbeb71e6cdb0" />
