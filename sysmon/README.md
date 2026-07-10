@@ -2,7 +2,7 @@
 - Since we already have looked at some of the most important Windows Events log, we shall also take a look at some captured advanced telemetry like `Event ID 1` or `Event ID 3`
 
 ## What is Sysmon?
-- Sysmon (System Monitor) is an advanced Windows tool that captures advanced telemtry. While Windows has built-in logs, Sysmon provides much more detail tracking exactly which programs (processes) are running, what files they modify, which servers they communicate with across the internet, and so much more
+- Sysmon (System Monitor) is an advanced Windows tool that captures advanced telemetry. While Windows has built-in logs, Sysmon provides much more detail tracking exactly which programs (processes) are running, what files they modify, which servers they communicate with across the internet, and so much more
 
 ## Installing Sysmon
 - First, we have to install Sysmon. I headed over Microsoft's official Sysinternals page and downloaded the `Sysmon.zip` package. This [link](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) was useful
