@@ -17,7 +17,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/489c4715-dc92-4faf-bf71-944398fdd15d" />
 </p>
 
-- I then copied all of the content of `sysmonconfig.xml` on the Github (once you click the link) into `TextEdit` and named it `sysmonconfig.xml`, unzipped the `Sysmon.zip`, took the `Sysmon64.exe` (this `.exe` was for a Intel/AMD x64 operating system), put that into one folder named `sysmon` and converted it to a `.iso` file. I did this one macOS so the process may be a little different for another OS. This guide was pretty useful: [link](https://www.petenetlive.com/KB/Article/0001554). Lastly, I uploaded it into Proxmox
+- I then copied all of the content of `sysmonconfig.xml` on the Github (once you click the link) into a plain text file and named it `sysmonconfig.xml`, unzipped the `Sysmon.zip`, took the `Sysmon64.exe` (this `.exe` was for a Intel/AMD x64 operating system), put that into one folder named `sysmon` and converted it to a `.iso` file. I did this one macOS so the process may be a little different for another OS. This guide was pretty useful: [link](https://www.petenetlive.com/KB/Article/0001554). Lastly, I uploaded it into Proxmox
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/98327a4c-f516-4a8b-9ec6-485072f90d50" />
