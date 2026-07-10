@@ -50,8 +50,8 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/82591413-e559-4d70-b59a-dbeb71e6cdb0" />
 </p>
 
-### Testing `Event ID 1`
-- Let's test this by typing in `net user administrator /domain` which stimulates an attacker searching for user accounts via opening Powershell. If we look in `Event Viewer` in the `CommandLine` row, we can see our exact command that I ran
+### `Event ID 1`
+- Let's test this by typing in `net user administrator /domain` which stimulates an attacker searching for information about the admin account and I typed this by opening Powershell. If we look in `Event Viewer` in the `CommandLine` row, we can see our exact command that I ran
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6657782b-9103-4916-b03a-d26b54720c49" />
