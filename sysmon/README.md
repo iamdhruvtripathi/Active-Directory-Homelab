@@ -95,6 +95,6 @@ http://192.168.1.200
 - You can also barely see at the top the `SourceIp: 192.168.1.200`, `DestinationIp: 192.168.1.200`, `DestinationPort: 80` and `DestinationPortName: http`. This proves that a Python process was running and it accepted a network connection over tcp on port 80 by my web browser and Sysmon captured that specific activity. Note that the web server connected to itself as I had the python web server running on `127.0.0.1` as you can notice by the same source and destination IP address
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d2919404-c2dd-49e1-a97a-691de6139ad4" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a98986c5-cb49-4027-8cc1-b0e1acdbc3a0" />
 </p>
 
