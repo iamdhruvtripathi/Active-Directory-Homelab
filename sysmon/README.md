@@ -98,3 +98,18 @@ http://192.168.1.200
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a98986c5-cb49-4027-8cc1-b0e1acdbc3a0" />
 </p>
 
+### `Event ID 11`
+- This event ID records File Create operations. It triggers whenever a new file is created or an existing file is overwritten. Let's create a plain text PowerShell script file with a single comment in it
+```
+New-Item -Path "C:\Tools\suspicious_script.ps1" -ItemType "file" -Value "# Fake Malicious Script"
+```
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7948f99a-b94d-4e9b-a430-77c36ba7bda0" />
+</p>
+
+- We can see it was a Powershell process that spawned and our file that we created :D
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/43ac835a-1590-46a8-b33b-cb649fca1728" />
+</p>
