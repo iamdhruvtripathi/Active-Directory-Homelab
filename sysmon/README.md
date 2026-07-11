@@ -31,7 +31,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/680244ac-c212-442e-a343-2472d59f135a" />
 </p>
 
-- I, then ran the installation
+- Then I ran the installation
 ```
 .\Sysmon64a.exe -i sysmonconfig.xml -accepteula
 ```
