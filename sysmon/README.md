@@ -51,7 +51,11 @@
 </p>
 
 ### `Event ID 1`
-- Let's test this by typing in `net user administrator /domain` which stimulates an attacker searching for information about the admin account and I typed this by opening Powershell. If we look in `Event Viewer` in the `CommandLine` row, we can see our exact command that I ran
+- Let's test this by typing in
+```
+net user administrator /domain
+```
+- which stimulates an attacker searching for information about the admin account and I typed this by opening Powershell. If we look in `Event Viewer` in the `CommandLine` row, we can see our exact command that I ran
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6657782b-9103-4916-b03a-d26b54720c49" />
@@ -62,3 +66,35 @@
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/c0a3e22d-d269-4049-a6db-386db5f4c07a" />
 </p>
+
+### `Event ID 3`
+- This event ID tracks whenever a process talks over the network such as downloading something from the Internet. To test this, instead of using the Internet because I couldn't as this is an isolated lab, I created a mini Python server
+```
+python -m http.server 80
+```
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6049e5c8-7608-4cb9-8656-1247a510d466" />
+</p>
+
+- And then I opened up a web browser and went to
+
+```
+http://192.168.1.200
+```
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2f7680e3-1d54-48d8-b4ce-6cf7fbc3ea86" />
+</p>
+
+- If we go into `Event Viewer` and filter the logs, we can see the Python process being launched in the `Image` row (`python.exe`) which was our python server as well as the protocol being used which is `tcp`
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bb6a58ab-8ae9-48c1-9eea-2ad822262d06" />
+</p>
+
+- You can also barely see at the top the `SourceIp: 192.168.1.200`, `DestinationIp: 192.168.1.200`, `DestinationPort: 80` and `DestinationPortName: http`. This proves that a Python process was running and it accepted a network connection over tcp on port 80 by my web browser and Sysmon captured that specific activity. Note that the web server connected to itself as I had the python web server running on `127.0.0.1` as you can notice by the same source and destination IP address
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d2919404-c2dd-49e1-a97a-691de6139ad4" />
+</p>
+
