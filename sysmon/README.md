@@ -113,3 +113,20 @@ New-Item -Path "C:\Tools\suspicious_script.ps1" -ItemType "file" -Value "# Fake 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/43ac835a-1590-46a8-b33b-cb649fca1728" />
 </p>
+
+### `Event ID 22`
+- This event ID captures DNS queries made by processes on a Windows system. This is useful because malware frequently relies on domain names to locate command-and-control (C2) servers or download malicious payloads. I made a fake DNS query but obviously it is not going to work because we are in a isolated setting
+
+```
+[System.Net.Dns]::GetHostAddresses("evildomain-c2-beacon.com")
+```
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d39763b3-8f56-4b02-81d5-2b7649229162" />
+</p>
+
+- However, Sysmon still capture that DNS request and we can see the exact query name we wanted to resolve appear below
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/49a67269-8aaa-4a68-b475-cf880ebb6339" />
+</p>
