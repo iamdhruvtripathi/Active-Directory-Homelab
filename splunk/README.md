@@ -29,3 +29,56 @@
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/ab6eb27f-ce47-463c-b838-da3d8db2481f" />
 </p>
+
+### Pointing Windows to Splunk
+- In this part, we will make sure that the logs are actually being sent to where Splunk is listening on (port `9997`). I clicked on `splunk-forwarder.msi` and went through the installation wizard. We are here at the first screen
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/64f72a2e-03b1-4ac7-8067-1fb0121168a6" />
+</p>
+
+- Setting my credentials here...
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/1e1ca64b-0413-4d85-8c4f-74003937b0fd" />
+</p>
+
+- This is most important part as we want our logs going to Splunk
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/54f0bbdc-910f-4d09-93b9-b28c70fbfce2" />
+</p>
+
+- BOOM!, we have successfully installed the Splunk Universal Forwarder. I repeated the exact same steps for the Windows 11 Client VM
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d1b789e9-7d6a-4f0d-b1dd-ff827e156ba5" />
+</p>
+
+### Sending Window Event & Sysmon Logs
+- I used Notepad to point Splunk to the logs. I opened up Notepad and selected `Run as Administrator` and navigated to `C:\Program Files\SplunkUniversalForwarder\etc\system\local\`. I selected `inputs.conf`. Note that I had to create this file as it did not exist previously
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/5f60dc40-0946-4d35-aaf8-898b2f82eb23" />
+</p>
+
+- I pasted this into notepad. Basically, this collects Sysmon, Windows Security, System and Application logs
+```
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]
+disabled = false
+renderXml = true
+index = main
+
+[WinEventLog://Security]
+disabled = false
+index = main
+
+[WinEventLog://System]
+disabled = false
+index = main
+
+[WinEventLog://Application]
+disabled = false
+index = main
+```
+- We restart Splunk and then once we launch Splunk again, I typed `index=main` and BOOM!, we see our logs here
