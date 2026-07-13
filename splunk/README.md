@@ -11,8 +11,21 @@
 </p>
 
 ### Installing the Splunk Universal Forwarder
-- For both the domain controller and the Windows 11 client VM, I installed the Splunk Universal Forwarder from Splunk's official site. Since my VM's do not have internet access, I just downloaded the `.msi` file from Splunk's official site and then converted it to an `.iso` file and uploaded it to the `C:\Tools` folder already present. Note that I downloaded the `64-bit` version
+- For both the domain controller and the Windows 11 client VM, I installed the Splunk Universal Forwarder from Splunk's official site. Since my VM's do not have internet access, I just downloaded the `.msi` file from Splunk's official site and then converted it to an `.iso` file. Note that I downloaded the `64-bit` version
+
+- To convert from `.msi` to `.iso`, I used this [link](https://www.petenetlive.com/KB/Article/0001554)
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/df85f9b1-5a65-4399-80b0-0add27d19913" />
+</p>
+
+- I then mounted the `.iso` file to the virtual CD/DVD drive in the `Hardware` tab on Proxmox and then uploaded it to the `C:\Tools` folder already present
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/21b39f9c-71eb-449d-986e-3938ed8d3b77" />
+</p>
+
+- I also made a `C:\Tools` folder on the Windows 11 VM client and then did the same thing as above
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/ab6eb27f-ce47-463c-b838-da3d8db2481f" />
 </p>
