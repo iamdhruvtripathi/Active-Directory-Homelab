@@ -92,29 +92,13 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/71986c96-94a4-46b0-87de-aa073ae3a1ed" />
 </p>
 
-- I successfully changed the IP address
-```
-New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.200 -PrefixLength 24 -DefaultGateway 192.168.1.254
-```
+- I successfully changed the IP address via the run box (`Win + R`)
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b24efc8a-7cf9-4488-af77-3114d4545275" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b47a4dfa-6ff0-48db-bc7b-d9fded11de93" />
 </p>
 
-- Then, I configured the DNS server to point to the Domain Controller (`192.168.1.100` on the DC, and the DC's static IP on client machines). When the server is promoted to a Domain Controller, it also becomes a DNS server. Active Directory Domain Services (AD DS) registers SRV records in DNS, which advertise services such as LDAP and Kerberos. The Domain Controller queries its own DNS to locate these services, while client computers query the DC's DNS server for the SRV records to discover the Domain Controller before joining the domain or authenticating
-```
-Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.1.200
-```
-
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/dd20fa11-eca1-470f-91ae-01bc4b5ba0ae" />
-</p>
-
-- Both the IP address and DNS server have been configured
-
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6781f681-b07c-4b9c-9f95-2bdf67b309ed" />
-</p>
+- I also configured the DNS server to point to the Domain Controller (`10.10.10.10` on the DC, and the DC's static IP on client machines). When the server is promoted to a Domain Controller, it also becomes a DNS server. Active Directory Domain Services (AD DS) registers SRV records in DNS, which advertise services such as LDAP and Kerberos. The Domain Controller queries its own DNS to locate these services, while client computers query the DC's DNS server for the SRV records to discover the Domain Controller before joining the domain or authenticating
 
 - Then, I renamed the server's name to `DC01`
 ```
@@ -137,7 +121,7 @@ Rename-Computer -NewName "DC01" -Restart
 - Our server is already highlighted :D
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/06382122-c156-4f72-8a4e-e19f50865aba" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bc29052b-4b2d-48eb-8944-258071cb6a41" />
 </p>
 
 - From the server roles, I selected AD DS
