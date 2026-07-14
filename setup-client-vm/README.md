@@ -55,16 +55,18 @@
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f94504a4-cbcb-4ac9-97a3-4c8ec723c3c5" />
    
 
-- Next thing before I join it to the domain is to set a static IP and point the DNS to the DC. As you can see below, I set the IP address of the Client VM to `192.168.1.201` and the DNS server to `192.168.1.200`
+- Next thing before I join it to the domain is to set a static IP and point the DNS to the DC. As you can see below, I set the IP address of the Client VM to `10.10.10.11` and the DNS server to `10.10.10.10`
 
    
-  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d1fd04c7-dafa-4523-b015-2aa32335de81" />
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/96135446-c14a-45b0-bc87-04399f82fc2a" />
+
    
 
 - As a confirmation, I pinged the DC and we can see we received a successful reply :D
 
    
-  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/acef4098-58cb-483f-b7c7-2e27050155ef" />
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/0759dde4-dbe0-470e-8a92-7deaa11e10cc" />
+
    
 
 - Now, we join the client VM to the domain `homelab.local`. First, I ran `sysdm.cpl` using `Win + R`. Then, I clicked `Change` at the bottom
