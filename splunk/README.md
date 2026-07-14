@@ -81,4 +81,5 @@ index = main
 disabled = false
 index = main
 ```
-- We restart Splunk and then once we launch Splunk again, I typed `index=main` and BOOM!, we see our logs here
+- Now, one issue is that because we moved the Windows VMs back onto the isolated `vmbr1` bridge, they are completely cut off from the main network bridge where my Splunk server lives. Since I can access the Splunk Web UI on my Mac, my Splunk VM is still sitting on `vmbr0`, while the Windows VMs are in the `vmbr1` sandbox. Essentially, they are on two completely different virtual switches
+- To solve this issue, I created another network interface where one is connected to my home network (`vmbr0`) and the other one is connected to my isolated lab environment (`vmbr1`)
