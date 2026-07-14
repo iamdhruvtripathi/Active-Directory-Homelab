@@ -82,4 +82,5 @@ disabled = false
 index = main
 ```
 - Now, one issue is that because we moved the Windows VMs back onto the isolated `vmbr1` bridge, they are completely cut off from the main network bridge where my Splunk server lives. Since I can access the Splunk Web UI on my Mac, my Splunk VM is still sitting on `vmbr0`, while the Windows VMs are in the `vmbr1` sandbox. Essentially, they are on two completely different virtual switches
-- To solve this issue, I created another network interface where one is connected to my home network (`vmbr0`) and the other one is connected to my isolated lab environment (`vmbr1`)
+- To solve this issue, I created another network interface where one is connected to my home network (`vmbr0`) and the other one is connected to my isolated lab environment (`vmbr1`). Another issue I encountered was that both my home network and my lab are using the same exact subnet (`192.168.1.0/24`) which causes IP routing conflicts if I wanted to create two different NICs, so unfortunately I had to change the subnet of my homelab so it would work
+- This allowed each network interface to have its own unique subnet, preventing routing ambiguity and allowing my Splunk server to communicate with both my isolated lab environment and my home network properly.
