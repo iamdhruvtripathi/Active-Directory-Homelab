@@ -23,7 +23,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8c833e8b-c01f-4b9f-9236-c143426d7584" />
 </p>
 
-- DNS works when, for example, a computer queries `dc01`, then it would search its records for a matching A record and if it finds one, it returns the corresponding IP address to the requesting computer, which can then use that IP address to communicate with `dc01`
+- DNS works when, for example, a computer queries `dco1`, then it would search its records for a matching A record and if it finds one, it returns the corresponding IP address to the requesting computer, which can then use that IP address to communicate with `dco1`
 
 ## Creating the Reverse Lookup Zone
 - Active Directory automatically creates Forward zones, but it leaves Reverse Lookup Zones (which translate an IP address back into a computer name) blank by default. Security tools and SIEM scanners rely on Reverse zones to figure out what computer an IP belongs to. We will create a new zone as shown below
