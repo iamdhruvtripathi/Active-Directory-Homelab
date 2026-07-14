@@ -13,7 +13,7 @@
 
 - We can see below the two `A` records which hold the IP address for `dc01` and the Windows client VM named `DESKTOP-HREURTQ`
 
-<img width="1007" height="630" alt="image" src="https://github.com/user-attachments/assets/a8879d99-5c49-45fc-a619-51fd7fa3f334" />
+<img width="909" height="566" alt="image" src="https://github.com/user-attachments/assets/8c833e8b-c01f-4b9f-9236-c143426d7584" />
 
 - DNS works when, for example, a computer queries `dc01`, then it would search its records for a matching A record and if it finds one, it returns the corresponding IP address to the requesting computer, which can then use that IP address to communicate with `dc01`
 
