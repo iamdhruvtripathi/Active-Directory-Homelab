@@ -51,7 +51,7 @@
 </p>
 
 - By using the command `nslookup dco1.homelab.local` we can see if the DNS resolution working properly, but... oh... it's not working properly? What's happening here?
-- The error that is shown below is because we haven't made a pointer record (`PTR`) when I made the `Reverse Lookup Zone`. DNS is successfully able to resolve the hostname to the IP address and that is why we see the `Address` at the bottom successfully under `Name` but it can not resolve the address to the hostname, hence the `Unkown` (it can not resolve its own name because the `PTR` record does not exist)
+- The error that is shown below is because we haven't made a pointer record (`PTR`) when I made the `Reverse Lookup Zone`. DNS is successfully able to resolve the hostname to the IP address and that is why we see the `Address` at the bottom successfully under `Name` but it can not resolve the address to the hostname, hence the `Unknown` (it can not resolve its own name because the `PTR` record does not exist)
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/64bf7f17-0fdb-4ac1-9520-66e872767687" />
