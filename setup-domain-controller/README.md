@@ -102,7 +102,7 @@
 
 - Then, I renamed the server's name to `DCO1`
 ```
-Rename-Computer -NewName "DC01" -Restart
+Rename-Computer -NewName "DCO1" -Restart
 ```
 ## Installing Active Directory Domain Service (AD DS)
 
