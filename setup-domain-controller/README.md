@@ -100,7 +100,7 @@
 
 - I also configured the DNS server to point to the Domain Controller (`10.10.10.10` on the DC, and the DC's static IP on client machines). When the server is promoted to a Domain Controller, it also becomes a DNS server. Active Directory Domain Services (AD DS) registers SRV records in DNS, which advertise services such as LDAP and Kerberos. The Domain Controller queries its own DNS to locate these services, while client computers query the DC's DNS server for the SRV records to discover the Domain Controller before joining the domain or authenticating
 
-- Then, I renamed the server's name to `DC01`
+- Then, I renamed the server's name to `DCO1`
 ```
 Rename-Computer -NewName "DCO1" -Restart
 ```
