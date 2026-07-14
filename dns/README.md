@@ -26,9 +26,9 @@
 
 <img width="962" height="603" alt="image" src="https://github.com/user-attachments/assets/323f9811-17f3-4a6a-9e13-0dcca238e592" />
 
-- The network ID is `192.168.1`
+- The network ID is `10.10.10`
 
-<img width="958" height="602" alt="image" src="https://github.com/user-attachments/assets/0b2aefd8-64b6-466c-9681-28bdb9241ac8" />
+<img width="908" height="567" alt="image" src="https://github.com/user-attachments/assets/2c8e1b55-099e-46a0-b4da-53ea63f77b79" />
 
 - I clicked `Finish` and we are done with creating the `Reverse Lookup Zone`. Now, it is time to test it via the client VM
 
@@ -37,16 +37,17 @@
 - By using the command `nslookup DC01.homelab.local` we can see if the DNS resolution working properly, but... oh... it's not working properly? What's happening here?
 - The error that is shown below is because we haven't made a pointer record (`PTR`) when I made the `Reverse Lookup Zone`. DNS is successfully able to resolve the hostname to the IP address and that is why we see the `Address` successfully but it can not resolve the address to the hostname
 
-<img width="960" height="603" alt="image" src="https://github.com/user-attachments/assets/752515a7-5d9b-46f4-9209-d48a82be24fa" />
+<img width="906" height="565" alt="image" src="https://github.com/user-attachments/assets/a9ad9a30-ca4a-4ab8-b0e3-91b4efbd90b0" />
 
-- To troubleshoot, let's go back and create a new `PTR`. I typed the `.200` and the hostname
+- To troubleshoot, let's go back and create a new `PTR`. I typed the `.10` and the hostname
 
-<img width="962" height="601" alt="image" src="https://github.com/user-attachments/assets/f0363830-3b73-41b6-9556-59601a64b7dd" />
+<img width="908" height="569" alt="image" src="https://github.com/user-attachments/assets/de18a8a1-3a67-4ca9-8c7a-01901f3396ee" />
 
 - Before I ran this command I did `ipconfig /flushdns` to clear the computers local DNS resolver cache and I ran the command below again, it worked successfully. Note that the output is similar but the top half shows which DNS server the computer was asking the information for (which is the DC itself) and the bottom half is the hostname and the IP address
 
-<img width="958" height="593" alt="image" src="https://github.com/user-attachments/assets/38775d39-4a1d-4982-9c8c-15da15e8e4c5" />
+<img width="908" height="566" alt="image" src="https://github.com/user-attachments/assets/030bfca1-39b6-48a5-babc-e98acc43a6ea" />
+
 
 - Now let's try the reverse by typing in the IP address and we can see below it worked successfully
 
-<img width="961" height="600" alt="image" src="https://github.com/user-attachments/assets/2e75c8b6-5f20-421b-b105-74a49a424729" />
+<img width="908" height="567" alt="image" src="https://github.com/user-attachments/assets/da79bc08-0bce-4988-a874-e72f57a27ddf" />
