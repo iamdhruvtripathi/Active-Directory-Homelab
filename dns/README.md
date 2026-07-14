@@ -17,7 +17,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2c1e628e-2895-4f02-bcc1-0fd529e173ed" />
 </p>
 
-- We can see below the two `A` records which hold the IP address for `dc01` and the Windows client VM named `DESKTOP-HREURTQ`
+- We can see below the two `A` records which hold the IP address for `dco1` and the Windows client VM named `DESKTOP-HREURTQ`
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8c833e8b-c01f-4b9f-9236-c143426d7584" />
