@@ -53,7 +53,11 @@
 
    
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f94504a4-cbcb-4ac9-97a3-4c8ec723c3c5" />
-   
+
+
+- First thing to do was to move this Windows VM 11 Client to `vmbr1`
+
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6e6ab4a1-2646-4c3f-9426-ee5fb155ba16" />
 
 - Next thing before I join it to the domain is to set a static IP and point the DNS to the DC. As you can see below, I set the IP address of the Client VM to `10.10.10.11` and the DNS server to `10.10.10.10`
 
