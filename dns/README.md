@@ -46,7 +46,7 @@
 
 - I clicked `Finish` and we are done with creating the `Reverse Lookup Zone`. Now, it is time to test it via the client VM
 
-<p center="align">
+<p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7b714fb6-b780-4a77-91b2-202db3d8dc23" />
 </p>
 
