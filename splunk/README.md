@@ -3,8 +3,35 @@
 ## What is Splunk?
 - Splunk Enterprise Security (Splunk ES) is a SIEM platform that collects and analyzes security logs from systems, applications, and network devices. It centralizes security data to help detect threats, generate alerts, and support incident investigations. It also provides dashboards and powerful search capabilities, enabling security teams to monitor and respond to potential security incidents efficiently
 
+### Dual-NIC for Splunk VM
+- Now, one issue is that because we moved the Windows VMs back onto the isolated `vmbr1` bridge, they are completely cut off from the main network bridge where my Splunk server lives. Since I can access the Splunk Web UI on my Mac, my Splunk VM is still sitting on `vmbr0`, while the Windows VMs are in the `vmbr1` sandbox. Essentially, they are on two completely different virtual switches
+- To solve this issue, my Splunk VM will have two NICs where one is named `ens18` which plugs into my home network (`vmbr0`) so I can access Splunk's dashboard from my Mac and `ens19` which plugs into my isolated sandbox (`vmbr1`) so it can collect logs from the Windows VMs
+  
+- First, I added another network device. As you can see below, one NIC (`ens18`) will be connected to `vmbr0` and the other one (`ens19`) will be connected to `vmbr1`
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/afbb4af4-58ec-4121-b2d6-df666f0a8de3" />
+</p>
+
+- Then, I opened up the network configuration file
+
+```
+sudo nano /etc/netplan/00-installer-config.yaml
+```
+- As you can see, one NIC (`ens18`) has its IP address assigned by DHCP (my home router) and the other NIC (`ens19`) has its IP address set to static by me to `10.10.10.10/24`
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7987078c-26d0-421b-bb21-51a38fe5c4e1" />
+</p>
+
+- Then run the command below to apply the changes
+```
+sudo netplan apply
+```
+
 ### Configuring Splunk receiving port
-- First, we have to make sure that Splunk is listening for incoming log data on a specific port. I configured port `9997` for this. This is because port `9997` is the standard enterprise default port where all Splunk forwarders send their raw telemetry
+
+- Now, we have to make sure that Splunk is listening for incoming log data on a specific port. I configured port `9997` for this. This is because port `9997` is the standard enterprise default port where all Splunk forwarders send their raw telemetry
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/0df83409-6d87-443b-8f8d-6658536447fa" />
@@ -46,13 +73,19 @@
 - This is most important part as we want our logs going to Splunk
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/54f0bbdc-910f-4d09-93b9-b28c70fbfce2" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/fa3eb14a-02d1-4861-8af5-9ffea0157ee0" />
 </p>
 
 - BOOM!, we have successfully installed the Splunk Universal Forwarder. I repeated the exact same steps for the Windows 11 Client VM
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d1b789e9-7d6a-4f0d-b1dd-ff827e156ba5" />
+</p>
+
+- Note: I did the same exact process on the Windows 11 VM Client
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2e331822-e087-44ac-ba38-ec19e5678a23" />
 </p>
 
 ### Sending Window Event & Sysmon Logs
@@ -68,6 +101,7 @@
 disabled = false
 renderXml = true
 index = main
+sourcetype = XmlWinEventLog:Sysmon
 
 [WinEventLog://Security]
 disabled = false
@@ -81,5 +115,10 @@ index = main
 disabled = false
 index = main
 ```
-- Now, one issue is that because we moved the Windows VMs back onto the isolated `vmbr1` bridge, they are completely cut off from the main network bridge where my Splunk server lives. Since I can access the Splunk Web UI on my Mac, my Splunk VM is still sitting on `vmbr0`, while the Windows VMs are in the `vmbr1` sandbox. Essentially, they are on two completely different virtual switches
-- To solve this issue, I created another network interface where one is connected to my home network (`vmbr0`) and the other one is connected to my isolated lab environment (`vmbr1`). This allows each network interface to have its own unique subnet, preventing routing ambiguity and allowing my Splunk server to communicate with both my isolated lab environment and my home network properly
+
+- Note: I did all of these steps for both the Windows 11 Client VM and the Domain Controller
+- BOOM!, we are able to see 30,000+ events into Splunk including Window Event logs as well Sysmon logs
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2656c64d-bc95-4e5c-b02d-8346716b4508" />
+</p>
