@@ -4,7 +4,7 @@
 ## What is Sysmon?
 - Sysmon (System Monitor) is an advanced Windows tool that captures advanced telemetry. While Windows has built-in logs, Sysmon provides much more detail tracking exactly which programs (processes) are running, what files they modify, which servers they communicate with across the internet, and so much more
 
-## Installing Sysmon
+## Installing Sysmon on Domain Controller
 - First, we have to install Sysmon. I headed over Microsoft's official Sysinternals page and downloaded the `Sysmon.zip` package. This [link](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) was useful
 
 <p align="center">
@@ -33,7 +33,7 @@
 
 - Then I ran the installation
 ```
-.\Sysmon64a.exe -i sysmonconfig.xml -accepteula
+.\Sysmon64.exe -i sysmonconfig.xml -accepteula
 ```
 
 - BOOM!, it worked :D
@@ -129,4 +129,11 @@ New-Item -Path "C:\Tools\suspicious_script.ps1" -ItemType "file" -Value "# Fake 
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/49a67269-8aaa-4a68-b475-cf880ebb6339" />
+</p>
+
+## Installing on Windows 11 Client VM
+- For later use, I also installed Sysmon on the Windows 11 client VM. I reused the same `sysmon.iso` we just created and create a new folder called `Sysmon` in `This PC`. Then, I ran the same commands as above passing it the XML configuration file
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/62bad899-7ae2-4a14-9802-6cd5c707d546" />
 </p>
