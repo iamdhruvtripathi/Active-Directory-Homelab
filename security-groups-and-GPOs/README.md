@@ -48,7 +48,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8d75b8c5-8bf9-44b9-86f8-0e317a0e5a7b" />
 </p>
 
-- Then, I logged in as `Jack` and ran `10.10.10.10\\IT_Secrets` via the Run box (`Win + R`) and the folder was able to pop up for `Jack`
+- Then, I logged in as `Jack` and ran `\\10.10.10.10\\IT_Secrets` via the Run box (`Win + R`) and the folder was able to pop up for `Jack`
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e5bbb026-6577-4892-b2fc-0ef1627fbf43" />
