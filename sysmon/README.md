@@ -79,23 +79,23 @@ python -m http.server 80
 - And then I opened up a web browser and went to
 
 ```
-http://192.168.1.200
+http://10.10.10.10
 ```
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2f7680e3-1d54-48d8-b4ce-6cf7fbc3ea86" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/4d016d55-f23f-4806-9530-b37f62a3904f" />
 </p>
 
 - If we go into `Event Viewer` and filter the logs, we can see the Python process being launched in the `Image` row (`python.exe`) which was our python server as well as the protocol being used which is `tcp`
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bb6a58ab-8ae9-48c1-9eea-2ad822262d06" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/eec0dea2-70d4-45b3-82ac-926db000074d" />
 </p>
 
-- You can also barely see at the top the `SourceIp: 192.168.1.200`, `DestinationIp: 192.168.1.200`, `DestinationPort: 80` and `DestinationPortName: http`. This proves that a Python process was running and it accepted a network connection over tcp on port 80 by my web browser and Sysmon captured that specific activity. Note that the web server connected to itself as I had the python web server running on `127.0.0.1` as you can notice by the same source and destination IP address
+- You can also barely see at the top the `SourceIp: 10.10.10.10`, `DestinationIp: 10.10.10.10`, `DestinationPort: 80` and `DestinationPortName: http`. This proves that a Python process was running and it accepted a network connection over tcp on port 80 by my web browser and Sysmon captured that specific activity. Note that the web server connected to itself as I had the python web server running on `127.0.0.1` as you can notice by the same source and destination IP address
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a98986c5-cb49-4027-8cc1-b0e1acdbc3a0" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/4c965c2f-4e7d-4117-832d-0907949a690c" />
 </p>
 
 ### `Event ID 11`
