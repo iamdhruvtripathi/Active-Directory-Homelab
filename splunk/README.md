@@ -76,7 +76,7 @@ sudo netplan apply
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/fa3eb14a-02d1-4861-8af5-9ffea0157ee0" />
 </p>
 
-- BOOM!, we have successfully installed the Splunk Universal Forwarder. I repeated the exact same steps for the Windows 11 Client VM
+- BOOM!, we have successfully installed the Splunk Universal Forwarder
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d1b789e9-7d6a-4f0d-b1dd-ff827e156ba5" />
