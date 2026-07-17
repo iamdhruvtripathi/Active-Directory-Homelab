@@ -1,4 +1,4 @@
-<img width="1036" height="759" alt="image" src="https://github.com/user-attachments/assets/0594d701-ef82-4142-bfe6-dfd8b5c6ecc7" /># Splunk
+# Splunk
 - So now it is time to pull out the big guns and add Splunk to this project. The idea is that since we already have the two Windows VM setup, we can use Splunk's Universal Forwarder, a light weight agent and install it directly on both the domain controller and the Windows 11 client and send Windows Event log and Sysmon logs to Splunk
 ## What is Splunk?
 - Splunk Enterprise Security (Splunk ES) is a SIEM platform that collects and analyzes security logs from systems, applications, and network devices. It centralizes security data to help detect threats, generate alerts, and support incident investigations. It also provides dashboards and powerful search capabilities, enabling security teams to monitor and respond to potential security incidents efficiently
