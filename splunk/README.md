@@ -18,7 +18,7 @@
 ```
 sudo nano /etc/netplan/00-installer-config.yaml
 ```
-- As you can see, one NIC (`ens18`) has its IP address assigned by DHCP (my home router) and the other NIC (`ens19`) has its IP address set to static by me to `10.10.10.10/24`
+- As you can see, one NIC (`ens18`) has its IP address assigned by DHCP (my home router) and the other NIC (`ens19`) has its IP address set to static by me to `10.10.10.15/24`
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7987078c-26d0-421b-bb21-51a38fe5c4e1" />
