@@ -289,7 +289,7 @@ index=main sourcetype="XmlWinEventLog:Sysmon" "<EventID>11</EventID>"
 ```
 [System.Net.Dns]::GetHostAddresses("evildomain-c2-beacon.com")
 ```
-- Finally, we can that it was captured. It was made by us (the admin) as denoted by the `User_1` column, what the query name was, what was the process that launched which was `powershell.exe` where I did use powershell to type the command as well as `Query_Status` which was my query that I typed
+- Finally, we can that it was captured. It was made by us (the admin) as denoted by the `User_1` column, what was the process that launched which was `powershell.exe` where I did use powershell to type the command as well as `Query_Status` which was my query that I typed
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/abc2789e-1d2e-47de-8b5a-1c0702064da0" />
