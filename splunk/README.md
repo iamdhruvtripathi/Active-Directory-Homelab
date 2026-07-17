@@ -1,4 +1,4 @@
-# Splunk
+<img width="1036" height="759" alt="image" src="https://github.com/user-attachments/assets/0594d701-ef82-4142-bfe6-dfd8b5c6ecc7" /># Splunk
 - So now it is time to pull out the big guns and add Splunk to this project. The idea is that since we already have the two Windows VM setup, we can use Splunk's Universal Forwarder, a light weight agent and install it directly on both the domain controller and the Windows 11 client and send Windows Event log and Sysmon logs to Splunk
 ## What is Splunk?
 - Splunk Enterprise Security (Splunk ES) is a SIEM platform that collects and analyzes security logs from systems, applications, and network devices. It centralizes security data to help detect threats, generate alerts, and support incident investigations. It also provides dashboards and powerful search capabilities, enabling security teams to monitor and respond to potential security incidents efficiently
@@ -133,7 +133,7 @@ index = main
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/4083d6f4-6365-4dd8-8a77-3a40c410a435" />
 </p>
 
-- We can confirm in Events Viewer that an account named `Hanna` was created
+- We can confirm in `Events Viewer` that an account named `Hanna` was created
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/134b05c3-5581-41ee-be00-92a7d5d1af2a" />
@@ -152,3 +152,53 @@ index = main
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/5faa02be-d37a-4cc9-afe2-678268841d3a" />
 </p>
+
+### Event ID `4771`
+- Now, let's look for another Event ID, namely the Event ID `4771` which is associated with Kerberos authentication. This one specifically records a failed Kerberos pre-authentication attempt such as me entering the wrong password 3+ times and then getting locked out (Whoops!). Well... I succeeded at that
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b97168a0-9bb9-499b-ac87-b0654ec82356" />
+</p>
+
+- I looked in `Events Viewer` to confirm that this log did get generated. We can see that it was indeed `Alisha` that typed in her password wrong 3+ times
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/10083df6-55c4-48f7-b139-1eb8be4e41a6" />
+</p>
+
+- Yes, we can see it was `Alisha` who failed to login
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/feb30fcd-bfab-4af0-a904-7ac0f043b106" />
+</p>
+
+- Note that most fields are the same but we can see that the `EventCode` is `4771` now. It was on the Domain controller and the `Keywords` is `Audit Failure` instead of `Audit Success` unlike last time. The message is `Kereberos pre-authenication failed` which means `Alisha` typed in her password wrong. We can see in the service name that it was `krbtgt/HOMELAB` meaning the KDC serice account. When the user logins, they ask the `krbtgt` service for a TGT or a ticket granting ticket. We can see the `Client Address` which we set the IP address as `10.10.10.10` in previous parts of this lab. The `Failure Code` is `0x12` which means that the user account exists but the user typed in the wrong password. If it was `0x6` that means the username itself does not exist
+
+### Event ID `4726`
+- Now, we can do Event ID `4726` which is means a user account is deleted. Let's delete that account we had created for `Hanna`. We can see in `Event Viewer` that `Hanna`'s account was in fact deleted
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/9784e2cc-24f4-465a-b429-97ea2909d20b" />
+</p>
+
+- Now, we can see in Splunk the same log and examine it
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/504aea85-b073-40ad-9aae-a02edd6f066a" />
+</p>
+
+- This one was a bit short but we can tell it was `Hanna`'s account was deleted by the administrator's account. The `EventCode` was 4726 as expected and the `Message` confirms our thoughts
+### Event ID `1102`
+- Lastly, we can see Event ID `1102` which gets created when the system's security audit log is manually cleared. As always, lets verify in `Event Viewer` and we can see the specific log
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d8a07d12-43dc-4a80-8304-8f15197e578d" />
+</p>
+
+- Then, in Splunk we can see the same information as well
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/38f7891e-893e-44e4-8eca-8a4950efa574" />
+</p>
+
+- We can tell by the `EventCode` which is `1102`, that it happened on the Domain Controller, it was a `Audit Success`, the `TaskCategory` this time was a `Log clear` and the `Message` clearly states what happened. Finally, we can see who did it in the `Subject` area which was the built in administrator account
