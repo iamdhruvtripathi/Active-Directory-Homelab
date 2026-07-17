@@ -272,3 +272,36 @@ index=main sourcetype="XmlWinEventLog:Sysmon" "<EventID>3</EventID>"
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/cce207c9-83a4-47d4-b853-fc076d576fe2" />
 </p>
+
+- This was the SPL query
+```
+index=main sourcetype="XmlWinEventLog:Sysmon" "<EventID>11</EventID>"
+| rex field=_raw "<EventID>(?<Event_ID>[^<]+)"
+| rex field=_raw "<Data Name='Image'>(?<Image_1>[^<]+)"
+| rex field=_raw "<TimeCreated SystemTime='(?<System_Time>[^<]+)'"
+| rex field=_raw "<Data Name='TargetFilename'>(?<Target_File_Name>[^<]+)"
+| table _time, Image_1, System_Time, Target_File_Name
+| sort - _time
+```
+
+### `Event ID 22`
+- Lastly, we can see `Event ID 22` which tracks any DNS queries made. Let's use this one which I did previously
+```
+[System.Net.Dns]::GetHostAddresses("evildomain-c2-beacon.com")
+```
+- Finally, we can that it was captured. It was made by us (the admin) as denoted by the `User_1` column, what the query name was, what was the process that launched which was `powershell.exe` where I did use powershell to type the command as well as `Query_Status` which was my query that I typed
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/abc2789e-1d2e-47de-8b5a-1c0702064da0" />
+</p>
+
+- Below is the SPL query
+```
+index=main sourcetype="XmlWinEventLog:Sysmon" "<EventID>22</EventID>"
+| rex field=_raw "<EventID>(?<Event_ID>[^<]+)"
+| rex field=_raw "<Data Name='Image'>(?<Image_1>[^<]+)"
+| rex field=_raw "<Data Name='User'>(?<User_1>[^<]+)"
+| rex field=_raw "<Data Name='QueryName'>(?<Query_Status>[^<]+)"
+| table _time, Event_ID, Image_1, User_1, Query_Status
+| sort - _time
+```
