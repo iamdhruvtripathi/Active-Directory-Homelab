@@ -123,7 +123,7 @@ index = main
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2656c64d-bc95-4e5c-b02d-8346716b4508" />
 </p>
 
-## Splunk Log Analysis
+## Splunk Log Analysis (Window Event logs)
 - Now, it is time to generate some logs that we can analyze deeply and see if we can understand what is going on. For the sake of this lab, I am going to generate some of the most common Window Event logs for learning purposes as well as Sysmon logs
 
 ### Event ID `4720`
@@ -202,3 +202,5 @@ index = main
 </p>
 
 - We can tell by the `EventCode` which is `1102`, that it happened on the Domain Controller, it was a `Audit Success`, the `TaskCategory` this time was a `Log clear` and the `Message` clearly states what happened. Finally, we can see who did it in the `Subject` area which was the built in administrator account
+
+## Splunk Log Analysis (Sysmon logs) (W.I.P)
