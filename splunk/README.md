@@ -116,7 +116,7 @@ disabled = false
 index = main
 ```
 
-- Note: I did all of these steps for both the Windows 11 Client VM and the Domain Controller
+- Note: I did all of these steps for both the Windows 11 Client VM and the Domain Controller. Note that you have to do `Restart-Service SplunkForwarder` for it to actually work
 - BOOM!, we are able to see 30,000+ events into Splunk including Window Event logs as well Sysmon logs
 
 <p align="center">
