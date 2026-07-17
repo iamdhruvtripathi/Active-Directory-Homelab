@@ -219,10 +219,10 @@ net user administrator /domain
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/5e9aa145-5af8-4f31-95c7-d720783d8485" />
 </p>
 
-- I had ran `whoami` and so let's write the splunk query to see the specific log. You can see below it is filtered perfectly and we know who it was by looking at the top log
+- I had ran `whoami` and so let's write the splunk query to see the specific log. You can see below it is filtered perfectly and we know who it was by looking at the top log as well as what the command was and the parent command
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/707c62ce-8280-4127-8070-ad018733c6f8" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d802c167-8d94-4074-a58e-eede7cf9483c" />
 </p>
 
 - Below is the SPL
@@ -233,7 +233,9 @@ index=main sourcetype="XmlWinEventLog:Sysmon" whoami
 | rex field=_raw "<Data Name='Image'>(?<Process_Path>[^<]+)"
 | rex field=_raw "<Data Name='CommandLine'>(?<Command_Line>[^<]+)"
 | rex field=_raw "<Data Name='User'>(?<User_Account>[^<]+)"
-| table _time, Computer_Name, User_Account, Process_Path, Command_Line, Event_ID
+| rex field=_raw "<Data Name='CommandLine'>(?<Command_Line>[^<]+)"
+| rex field=_raw "<Data Name='ParentCommandLine'>(?<Parent_Command_Line>[^<]+)"
+| table _time, Computer_Name, User_Account, Process_Path, Command_Line, Event_ID, Command_Line, Parent_Command_Line
 | sort - _time
 ```
 
