@@ -203,4 +203,42 @@ index = main
 
 - We can tell by the `EventCode` which is `1102`, that it happened on the Domain Controller, it was a `Audit Success`, the `TaskCategory` this time was a `Log clear` and the `Message` clearly states what happened. Finally, we can see who did it in the `Subject` area which was the built in administrator account
 
-## Splunk Log Analysis (Sysmon logs) (W.I.P)
+## Splunk Log Analysis (Sysmon logs)
+- We can also search for Sysmon logs as well. Let's test `Event ID 1`, `Event ID 3`, `Event ID` and `Event ID 22`
+
+### `Event ID 1`
+- As we know, this event ID tracks process creation. Let's test these two commands below
+```
+whoami
+```
+```
+net user administrator /domain
+```
+- Since Sysmon logs in Splunk can look very messy, what we can do is filter via regex and knowing the field names we can search specifically and make it into a table for a nicer display
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/5e9aa145-5af8-4f31-95c7-d720783d8485" />
+</p>
+
+- I had ran `whoami` and so let's write the splunk query to see the specific log. You can see below it is filtered perfectly and we know who it was by looking at the top log
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/707c62ce-8280-4127-8070-ad018733c6f8" />
+</p>
+
+- Below is the SPL
+```
+index=main sourcetype="XmlWinEventLog:Sysmon" whoami
+| rex field=_raw "<EventID>(?<Event_ID>[^<]+)"
+| rex field=_raw "<Computer>(?<Computer_Name>[^<]+)"
+| rex field=_raw "<Data Name='Image'>(?<Process_Path>[^<]+)"
+| rex field=_raw "<Data Name='CommandLine'>(?<Command_Line>[^<]+)"
+| rex field=_raw "<Data Name='User'>(?<User_Account>[^<]+)"
+| table _time, Computer_Name, User_Account, Process_Path, Command_Line, Event_ID
+| sort - _time
+```
+
+- Basically, what this does is it looks for Sysmon Windows event logs that contain the command `whoami`. It then uses the `rex` command to extract specific values from the raw XML event (`field=_raw`) using regular expressions. For example, in the expression
+```
+<EventID>(?<Event_ID>[^<]+)
+```
+- it looks for the `<EventID>` tag, then uses `(?<Event_ID>)` to create a new field named `Event_ID`. The `?<Event_ID>` part tells `rex` to save the matching text into a field with that name. The `[^<]+` part captures one or more characters that are not `<` and so it grabs everything after the `<EventID>` tag until it reaches the next `<` character. That captured value is then stored in the `Event_ID` field
