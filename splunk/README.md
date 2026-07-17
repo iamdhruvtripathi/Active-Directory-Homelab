@@ -252,3 +252,23 @@ index=main sourcetype="XmlWinEventLog:Sysmon" whoami
 
 ### `Event ID 3`
 - This event ID tracks whenever a TCP or UDP connection is created or detected. I locally created a Python server on port 80 and connected to it via my web browser. We can see below the other connections but I wanted to highlight that it was our browser on `10.10.10.10` on the DC connecting to the Python server on `10.10.10.10` because the Python server was running locally, essentially we are connecting to ourselves. The destination port confirms that we are running the Python server on port `80` and that it was a `python.exe` process running
+
+- This was the SPL query
+```
+index=main sourcetype="XmlWinEventLog:Sysmon" "<EventID>3</EventID>"
+| rex field=_raw "<EventID>(?<Event_ID>[^<]+)"
+| rex field=_raw "<Data Name='Image'>(?<Image_1>[^<]+)"
+| rex field=_raw "<Data Name='DestinationPort'>(?<Destination_Port>[^<]+)"
+| rex field=_raw "<Data Name='DestinationIp'>(?<Destination_IP>[^<]+)"
+| rex field=_raw "<Data Name='SourceIp'>(?<Source_Ip>[^<]+)"
+| rex field=_raw "<Data Name='SourcePort'>(?<Source_Port>[^<]+)"
+| table _time, Image_1, Destination_Port, Destination_IP, Source_Ip, Source_Port, Event_ID
+| sort - _time
+```
+
+### `Event ID 11`
+- Now, this event ID tracks file creation. I had created a file named `another_suspicious_file`. We can see below that this log was captured displaying the process that started which was `notepad.exe` as I used Notepad to create this file, the time and where it was saved which indeed was in my `Downloads` folder
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/cce207c9-83a4-47d4-b853-fc076d576fe2" />
+</p>
