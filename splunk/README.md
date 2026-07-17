@@ -204,7 +204,7 @@ index = main
 - We can tell by the `EventCode` which is `1102`, that it happened on the Domain Controller, it was a `Audit Success`, the `TaskCategory` this time was a `Log clear` and the `Message` clearly states what happened. Finally, we can see who did it in the `Subject` area which was the built in administrator account
 
 ## Splunk Log Analysis (Sysmon logs)
-- We can also search for Sysmon logs as well. Let's test `Event ID 1`, `Event ID 3`, `Event ID` and `Event ID 22`
+- We can also search for Sysmon logs as well. Let's test `Event ID 1`, `Event ID 3`, `Event ID 11` and `Event ID 22`
 
 ### `Event ID 1`
 - As we know, this event ID tracks process creation. Let's test these two commands below
