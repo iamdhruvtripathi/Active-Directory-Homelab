@@ -62,7 +62,7 @@ The lab focuses on foundational Active Directory concepts including domain contr
   * NIC 1 (`ens18`): Connected to `vmbr0` (Management network) obtaining an IP address via DHCP to communicate with the physical Macbook Pro
   * NIC 2 (`ens19`): Connected to `vmbr1` (Isolated network) with a hardcoded static IP
 
-Role: Listens on TCP port `9997` for incoming sandbox telemetry and hosts the Splunk Web UI on port `8000`
+* Role: Listens on TCP port `9997` for incoming sandbox telemetry and hosts the Splunk Web UI on port `8000`
 
 ### Network Design
 
