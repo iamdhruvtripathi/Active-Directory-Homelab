@@ -251,4 +251,4 @@ index=main sourcetype="XmlWinEventLog:Sysmon" whoami
 </p>
 
 ### `Event ID 3`
-- This event ID tracks whenever a TCP or UDP connection is created or detected. I locally created a Python server and connected to it via my web browser. We can see below the other connections but I wanted to highlight that it was our browser on `10.10.10.10` on the DC connecting to the Python server on `10.10.10.10` because the Python server was running locally, essentially we are connecting to ourselves. The destination port confirms that we are running the Python server on port `80` and that it was a `python.exe` process running
+- This event ID tracks whenever a TCP or UDP connection is created or detected. I locally created a Python server in port 80 and connected to it via my web browser. We can see below the other connections but I wanted to highlight that it was our browser on `10.10.10.10` on the DC connecting to the Python server on `10.10.10.10` because the Python server was running locally, essentially we are connecting to ourselves. The destination port confirms that we are running the Python server on port `80` and that it was a `python.exe` process running
