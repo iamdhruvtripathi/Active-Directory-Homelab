@@ -10,47 +10,64 @@ The lab focuses on foundational Active Directory concepts including domain contr
 
 ## Project Specifications
 
-### Infrastructure Requirements
+### Infrastructure Outline
 
 **Hypervisor Platform**
 
 * Proxmox VE
 * 32 GB RAM
-* Internet connectivity for updates and software installation
+
+**Primary Management Device**
+* macOS (MacBook Pro) accessing the environment via Proxmox Web UI
 
 ### Operating Systems
 
 **Domain Controller**
 
-* Windows Server 2022 Evaluation or Windows Server 2025 Evaluation
+* Windows Server 2025 Evaluation
 * Active Directory Domain Services (AD DS) role installed
 
 **Client Workstation**
 
-* Windows 10 Enterprise Evaluation or Windows 11 Enterprise Evaluation
+* Windows 11 Pro Enterprise Evaluation
 * Joined to the Active Directory domain
+
+**SIEM**
+
+* Ubuntu Linux running Splunk Enterprise Server
 
 ### Virtual Machine Configuration
 
 #### VM 1: Domain Controller
 * CPU: 2 vCPUs
-* RAM: 4 GB
-* Storage: 30-40 GB
+* RAM: 5 GB
+* Storage: 32 GB
 * Network:
-  * NIC 1: Connected to `vmbr1` (Primary - Internal Domain Network)
-  * NIC 2: Connected to `vmbr0` (Temporary - Internet access for updates/activation)
+  * NIC 1: Connected to `vmbr1` (Isolated network)
 * Operating System: Windows Server Evaluation
+* Log agents: Sysmon (SwiftOnSecurity config) & Splunk Universal Forwarder
 
 #### VM 2: Domain-Joined Client
 * CPU: 2 vCPUs
-* RAM: 4–6 GB
-* Storage: 30-40 GB
-* Network: Connected to `vmbr1` (Fully Isolated Network)
-* Operating System: Windows 10/11 Enterprise Evaluation
+* RAM: 5 GB
+* Storage: 32 GB
+* Network:
+  * NIC 1: Connected to `vmbr1` (Isolated network)
+* Operating System: Windows 11 Pro Enterprise Evaluation
+* Log agents: Sysmon (SwiftOnSecurity config) & Splunk Universal Forwarder
+
+#### VM 3: Splunk Enterprise Server
+* Operating System: Ubuntu Linux
+* Network (Dual-NIC Architecture):
+  * NIC 1 (`ens18`): Connected to `vmbr0` (Management network) obtaining an IP address via DHCP to communicate with the physical Macbook Pro
+  * NIC 2 (`ens19`): Connected to `vmbr1` (Isolated network) with a hardcoded static IP
+
+Role: Listens on TCP port `9997` for incoming sandbox telemetry and hosts the Splunk Web UI on port `8000`
 
 ### Network Design
 
-* Isolated Virtual Bridge (`vmbr1`): A dedicated virtual switch inside Proxmox with no physical port attachment, isolating all AD traffic, DNS, and future simulation/security tools
-* Static IP Addressing: Both VMs will use static IPs within a dedicated private subnet assigned to the `vmbr1` interfaces
-* DNS Services: Primary DNS for all domain assets is hosted on the Domain Controller via `vmbr1`
-* Controlled Internet Access: The Domain Controller temporarily uses a secondary `vmbr0` interface for updates and software downloads. Once setup is complete, the interface is removed or disabled, ensuring the lab operates entirely on the isolated `vmbr1` network
+* `vmbr0` (Management Network): Used for Proxmox management and to access the Splunk Web UI from the MacBook Pro.
+* `vmbr1` (Isolated Lab Network): Private virtual bridge with no physical uplink that hosts all Active Directory traffic between the Domain Controller, Windows 11 client, and Splunk server.
+* IP Addressing: The Domain Controller and the Splunk server's `ens19` interface use static IP addresses on `vmbr1`. The Windows 11 client receives its IP address from the Domain Controller via DHCP, while the Splunk server's `ens18` interface obtains an IP address from the home network via DHCP
+* DNS & Authentication: The Domain Controller provides Active Directory, DNS, and DHCP services for all domain-joined systems
+* Centralized Logging: Sysmon and Splunk Universal Forwarder send logs from the Domain Controller and Windows 11 client to the Splunk Enterprise server over the isolated network
