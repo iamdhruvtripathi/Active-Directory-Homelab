@@ -122,3 +122,33 @@ index = main
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2656c64d-bc95-4e5c-b02d-8346716b4508" />
 </p>
+
+## Splunk Log Analysis
+- Now, it is time to generate some logs that we can analyze deeply and see if we can understand what is going on. For the sake of this lab, I am going to generate some of the most common Window Event logs for learning purposes as well as Sysmon logs
+
+### Event ID `4720`
+- Let's test for the Windows Event Log ID `4720` which is generated whenever a new user account is successfully created in Active Directory and it identifies who performed the action and the details of the newly created account. For this, I created a new account in the domain controller
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/4083d6f4-6365-4dd8-8a77-3a40c410a435" />
+</p>
+
+- We can confirm in Events Viewer that an account named `Hanna` was created
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/134b05c3-5581-41ee-be00-92a7d5d1af2a" />
+</p>
+
+- Look at that... we see the Security log in Splunk. Lets dissect this log
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2ce20551-0cc3-478c-a6ea-3642cfe5b381" />
+</p>
+
+- This log clearly came today, as of `7/16/2026` and the `EventCode` is `4720` which we know that someone created a new user account. It was created on the domain controller as denoted by `ComputerName` and the DC's name is `DCO1.homelab.local`. We can see the `Message` and know what this log is about. We know that from the `Subject` line, it was the `Administrator` who created this account from `Account Name` in the domain `HOMELAB`. Furthermore, the `Security ID` ends in `-500` which means this was the built-in admin account. For the new account created under `New Account`, it was `hanna` in the `HOMELAB` domain. We can also see the new account's `Attributes` such as their `SAM Account Name`, `Display Name` which is `hanna` and `Hanna` respectively and `User Principal Number` which is `hanna@homelab.local`. We also know the `Security ID` ends in `-1118` which means this was a new identity created in the domain. The `Primary Group ID` is `513` which means `Hanna` is a domain user. `512` would be for a domain admin. For the `UAC`, we can see underneath that the account is disabled which happens by default until configured, the password is not required and that this is a typical user account as indicated by `Normal Account`
+
+- If we expand the log, we can see both the `Field` and `Value` columns
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/5faa02be-d37a-4cc9-afe2-678268841d3a" />
+</p>
