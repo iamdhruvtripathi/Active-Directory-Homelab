@@ -246,12 +246,19 @@ index=main sourcetype="XmlWinEventLog:Sysmon" whoami
 - it looks for the `<EventID>` tag, then uses `(?<Event_ID>)` to create a new field named `Event_ID`. The `?<Event_ID>` part tells `rex` to save the matching text into a field with that name. The `[^<]+` part captures one or more characters that are not `<` and so it grabs everything after the `<EventID>` tag until it reaches the next `<` character. That captured value is then stored in the `Event_ID` field
 
 - We can see the same results here for `net user administrator /domain`
+
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/648ed6c4-9bdb-407b-90d5-52831e7d3402" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/944df7d6-3e7a-48c6-a9d4-22a9c241a33d" />
 </p>
+
+- Note here that `powershell.exe` is the grandparent process, `net.exe` is the parent process and `net1.exe` is the child process
 
 ### `Event ID 3`
 - This event ID tracks whenever a TCP or UDP connection is created or detected. I locally created a Python server on port 80 and connected to it via my web browser. We can see below the other connections but I wanted to highlight that it was our browser on `10.10.10.10` on the DC connecting to the Python server on `10.10.10.10` because the Python server was running locally, essentially we are connecting to ourselves. The destination port confirms that we are running the Python server on port `80` and that it was a `python.exe` process running
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/648ed6c4-9bdb-407b-90d5-52831e7d3402" />
+</p>
 
 - This was the SPL query
 ```
