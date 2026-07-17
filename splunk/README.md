@@ -219,7 +219,7 @@ net user administrator /domain
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/5e9aa145-5af8-4f31-95c7-d720783d8485" />
 </p>
 
-- I had ran `whoami` and so let's write the splunk query to see the specific log. You can see below it is filtered perfectly and we know who it was by looking at the top log as well as what the command was and the parent command
+- I had ran `whoami` and so let's write the splunk query to see the specific log. You can see below it is filtered perfectly and we know who it was by looking at the top log as well as what the command was and the parent command. The parent process was `powershell.exe` where I did use powershell and it launched the `whoami.exe` process. The `User_Account` was `HOMELAB\Administrator` and this happened on the Domain controller
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d802c167-8d94-4074-a58e-eede7cf9483c" />
