@@ -1,4 +1,9 @@
 # Active-Directory Homelab
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/c3755cce-da09-45a2-b1d3-9e2a2f2c7992" />
+</p>
+
 Virtualized Windows domain environment that provides hands-on experience with Active Directory administration, domain services, authentication, Group Policy, and enterprise security operations using Proxmox virtualization
 ## Project Background
 
