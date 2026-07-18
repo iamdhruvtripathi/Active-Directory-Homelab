@@ -14,7 +14,7 @@ This project was developed to provide a hands-on Active Directory lab environmen
 The lab focuses on foundational Active Directory concepts including domain controllers, domain-joined workstations, DNS, Group Policy Objects (GPOs), user and group administration, authentication, and Windows domain management. The environment is designed to support practical learning and experimentation with Active Directory administration while serving as a foundation for future cybersecurity, system administration, blue team, and red team projects
 
 ## Network Architecture
-- TBH
+- TBD
 
 ## Project Specifications
 
