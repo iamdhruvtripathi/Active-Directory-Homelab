@@ -37,3 +37,33 @@
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7fde5f49-5571-4192-9763-24a182e43ffd" />
 </p>
+
+- Note that when I assigned the IP address to the Kali VM during installation, it did not set it for some reason and so I had to run these two commands to set the IP address again
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f4ae88f9-89ba-4739-893f-550df67f48bf" />
+</p>
+
+- As we can see, it can talk to the DC correctly :D
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/862a7db6-c6e3-43b8-a7fe-38df2a4726bc" />
+</p>
+
+- Now, two things to make this go smoothly. I will set `Alisha`'s password to `Password123` and check `Do not require Kerberos pre-authentication` but first I had to change the password settings so I could actually set her password to that value and then do `gpupdate /force` to make sure it applied everyone in the domain. I had to modify the Default Domain Policy 
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/782b6402-66d5-4635-a7bd-064d81f37e9f" />
+</p>
+
+- Now, I change set her password to `Summer2026`
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/32a47e5e-65dd-4fc4-af99-599d61039bbb" />
+</p>
+
+- and I checked the box
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/4794de3a-f8e8-4554-9c6b-33f59488b303" />
+</p>
