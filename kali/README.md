@@ -56,7 +56,7 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/782b6402-66d5-4635-a7bd-064d81f37e9f" />
 </p>
 
-- Now, I change set her password to `Summer2026`
+- Now, I changed her password to `Summer2026`
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/32a47e5e-65dd-4fc4-af99-599d61039bbb" />
@@ -66,4 +66,26 @@
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/4794de3a-f8e8-4554-9c6b-33f59488b303" />
+</p>
+
+- Now, it is time for the fun part and I will be running Impacket's `GetNPUsers` tool to request the ticket hash
+```
+impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
+```
+- BOOM!, we get the result we wanted. Now that we have her encrypted data (`AS-REP hash`), what we can do is use `John the Ripper` for offline password cracking to get her real password (which should be `Summer2026`). The idea here is that `John the Ripper` tries different passwords to get the correct password derived key and if we are able to decrypt the session key and we get valid data in the `AS-REP` hash it means we have correctly guessed the user's password
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bf5d363a-6c07-49c9-a304-2c7f3c53eae2" />
+</p>
+
+- Now, I requested the data again and saved it into a file called `hash.txt`
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d202dec8-cbac-4558-b1ea-3076fe5859a5" />
+</p>
+
+- I made some changes to the `.txt` file so when I feed it, `John` can actually understand it
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/ac06ddbd-b0f1-4fa9-b0dd-279b6e2dc167" />
 </p>
