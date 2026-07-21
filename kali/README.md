@@ -50,13 +50,13 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/862a7db6-c6e3-43b8-a7fe-38df2a4726bc" />
 </p>
 
-- Now, two things to make this go smoothly. I will set `Alisha`'s password to `Summer2026` and check `Do not require Kerberos pre-authentication` but first I had to change the password settings so I could actually set her password to that value and then do `gpupdate /force` to make sure it applied everyone in the domain 
+- Now, two things to make this go smoothly. I will set `Alisha`'s password to `welcome1` and check `Do not require Kerberos pre-authentication` but first I had to change the password settings so I could actually set her password to that value and then do `gpupdate /force` to make sure it applied everyone in the domain 
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/782b6402-66d5-4635-a7bd-064d81f37e9f" />
 </p>
 
-- Now, I changed her password to `Summer2026`
+- Now, I changed her password to `welcome1`
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/32a47e5e-65dd-4fc4-af99-599d61039bbb" />
@@ -72,20 +72,22 @@
 ```
 impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 ```
-- BOOM!, we get the result we wanted. Now that we have her encrypted data (`AS-REP hash`), what we can do is use `John the Ripper` for offline password cracking to get her real password (which should be `Summer2026`). The idea here is that `John the Ripper` tries different passwords to get the correct password derived key and if we are able to decrypt the session key and we get valid data in the `AS-REP` hash it means we have correctly guessed the user's password
+- BOOM!, we get the result we wanted. Now that we have her encrypted data (`AS-REP hash`), what we can do is use `John the Ripper` for offline password cracking to get her real password (which should be `welcome1`). The idea here is that `John the Ripper` tries different passwords to get the correct password derived key and if we are able to decrypt the session key and we get valid data in the `AS-REP` hash it means we have correctly guessed the user's password
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bf5d363a-6c07-49c9-a304-2c7f3c53eae2" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/24d4344c-20d8-4393-a165-9fc878334a58" />
 </p>
 
 - Now, I requested the data again and saved it into a file called `hash.txt`
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d202dec8-cbac-4558-b1ea-3076fe5859a5" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bc48ff38-38a0-4e6c-ab47-7b7b85ba4945" />
 </p>
 
 - I made some changes to the `.txt` file so when I feed it, `John` can actually understand it
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/ac06ddbd-b0f1-4fa9-b0dd-279b6e2dc167" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/be3ad9a3-765b-4b6a-86bd-0821e2373072" />
 </p>
+
+- 
