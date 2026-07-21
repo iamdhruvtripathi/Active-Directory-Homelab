@@ -124,6 +124,13 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/0826fec8-37f2-42b2-be9b-211f24c509f7" />
 </p>
 
+- In Splunk, I made a neat table that gave us the information
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/1ac0a50d-808a-41eb-9525-a0babc2a260a" />
+</p>
+
+- We can clearly see that my Kali Linux VM (`10.10.10.20`) had `Alisha`'s credentials and used them to log into the VM via RDP, making it appear as though `Alisha` had logged in herself. This represents inital access through the use of valid credentials over RDP
+ 
 ## What is `Kerberoasting`
 - Kerberoasting is a post-exploitation attack against Kerberos authentication in Active Directory that targets domain service accounts
 
