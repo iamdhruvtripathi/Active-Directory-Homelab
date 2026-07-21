@@ -97,6 +97,8 @@ impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 </p>
 
 ## What is `Kerberoasting`
-- Kerberoasting is an attack against Kerberos authentication in Active Directory that targets service accounts
+- Kerberoasting is a post-exploitation attack against Kerberos authentication in Active Directory that targets domain service accounts
 
-- The attack begins when an authenticated domain user sends a `TGS-REQ` (Ticket Granting Service Request) to the Key Distribution Center (KDC), requesting a service ticket for a specific Service Principal Name (SPN). The KDC responds with a `TGS-REP` (Ticket Granting Service Reply) containing a service ticket. This service ticket is encrypted using the password hash of the target service account. Because the attacker cannot decrypt the ticket directly, they extract the encrypted portion and perform offline password cracking
+- The attack begins when an attacker has access to any authenticated domain user account. Using that account, they send a `TGS-REQ` (Ticket Granting Service Request) to the Key Distribution Center (KDC) for a service associated with a specific Service Principal Name (SPN). If the request is valid, the KDC returns a `TGS-REP` (Ticket Granting Service Reply) containing a service ticket
+
+- The service ticket is encrypted using the service account's key, which is derived from the service account's password. Although the attacker cannot directly decrypt the ticket, they can extract the encrypted service ticket and perform offline password cracking. For each password guess, they derive the corresponding Kerberos key and attempt to decrypt the ticket. If decryption succeeds, the guessed password (or its equivalent key) is correct, allowing the attacker to recover the service account's credentials
