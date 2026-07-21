@@ -96,6 +96,8 @@ impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f55d592f-4fab-4ffe-a225-07d93a36b746" />
 </p>
 
+- Now before I move onto the next topic, as an attacker I now know `Alisha`'s username and password, so we can login remotely into her account using RDP. 
+
 ## What is `Kerberoasting`
 - Kerberoasting is a post-exploitation attack against Kerberos authentication in Active Directory that targets domain service accounts
 
