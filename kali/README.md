@@ -96,7 +96,28 @@ impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f55d592f-4fab-4ffe-a225-07d93a36b746" />
 </p>
 
-- Now before I move onto the next topic, as an attacker I now know `Alisha`'s username and password, so we can login remotely into her account using RDP. 
+- Now before I move onto the next topic, as an attacker I now know `Alisha`'s username and password, so we can login remotely into her account using RDP but first I needed to enable `Remote Desktop` on the computer
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8baa088d-5c62-4d83-b796-7a880b00d939" />
+</p>
+
+- Also, I had to run the command below and then restart the computer
+```
+Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+```
+
+- I also tested to see if the port was listening over the network from Kali before I ran `xfreerdp` and it said it was open
+```
+nc -zvw 3 10.10.10.50 3389
+```
+
+- Now, we can remotely access her computer via RDP from Kali
+<p align="center">
+
+</p>
+
+
+WIP
 
 ## What is `Kerberoasting`
 - Kerberoasting is a post-exploitation attack against Kerberos authentication in Active Directory that targets domain service accounts
