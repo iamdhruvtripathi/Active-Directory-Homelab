@@ -111,13 +111,18 @@ Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 nc -zvw 3 10.10.10.50 3389
 ```
 
-- Now, we can remotely access her computer via RDP from Kali
+- Lastly, one of the most important steps was giving all domain users permission to login via RDP, otherwise, the connection would fail
 <p align="center">
-
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/25c35de5-e234-4bd4-81d0-276b6bbc8909" />
 </p>
 
-
-WIP
+- Now, we can remotely access her computer via RDP from Kali and BOOM!, we are in
+```
+xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /dynamic-resolution
+```
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/0826fec8-37f2-42b2-be9b-211f24c509f7" />
+</p>
 
 ## What is `Kerberoasting`
 - Kerberoasting is a post-exploitation attack against Kerberos authentication in Active Directory that targets domain service accounts
