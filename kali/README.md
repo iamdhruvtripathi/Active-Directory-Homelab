@@ -72,22 +72,26 @@
 ```
 impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 ```
-- BOOM!, we get the result we wanted. Now that we have her encrypted data (`AS-REP hash`), what we can do is use `John the Ripper` for offline password cracking to get her real password (which should be `welcome1`). The idea here is that `John the Ripper` tries different passwords to get the correct password derived key and if we are able to decrypt the session key and we get valid data in the `AS-REP` hash it means we have correctly guessed the user's password
+- BOOM!, we get the result we wanted. Now that we have her encrypted data (`AS-REP hash`), what we can do is use `John the Ripper` for offline password cracking to get her real password (which should be `welcome1`). The idea here is that `John the Ripper` tries different passwords to get the correct password derived key and if we are able to decrypt the session key and we get valid data in the `AS-REP` hash it means we have correctly guessed the user's password. Below, I saved the output into a file named `hash.txt`
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/24d4344c-20d8-4393-a165-9fc878334a58" />
-</p>
-
-- Now, I requested the data again and saved it into a file called `hash.txt`
-
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bc48ff38-38a0-4e6c-ab47-7b7b85ba4945" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/cd114155-4715-40b7-9da8-72302b21bf84" />
 </p>
 
 - I made some changes to the `.txt` file so when I feed it, `John` can actually understand it
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/be3ad9a3-765b-4b6a-86bd-0821e2373072" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/1a7a19e1-9ca0-4d38-9c3a-a76fd34f686e" />
 </p>
 
-- 
+- `John` ended up cracking the password in less than 1 second
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b46f479f-3933-4689-9939-81b9549f465b" />
+</p>
+
+- Now, as a detective we also need to see what happened. If we take a look into Splunk searching for the Event ID `4768`, we can see indeed it was our Kali linux machine (IP address `10.10.10.20`) that requested the TGT. The account name was indeed `Alisha`. Furthermore, we can see `Pre_Authentication_Type` is set to `0` which means that Kerberos pre-authentication was explicitly bypassed or not required. Standard Kerberos authentication uses type `2` (`PA-ENC-TIMESTAMP`). The `Ticket_Encryption_Type` is set to `0x17` which corresponds to `RC4-HMAC`. This specific hashing structure is easier to crack offline compared to AES-128 (`0x11`) or AES-256 (`0x12`)
+  
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f55d592f-4fab-4ffe-a225-07d93a36b746" />
+</p>
