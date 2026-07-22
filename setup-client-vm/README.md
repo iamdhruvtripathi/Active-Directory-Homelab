@@ -1,6 +1,6 @@
 # Setup - Client VM
 - This part details about creating the isolated switch (`vmbr1`) as mentioned in the main `README.md` and the Client VM
-## Creating the Isolated Switch (`vmbr1`)
+## Creating the Isolated Switch (`vmbr1`)  for `DCO1`
 - Note: The reason why I did this was because so I can create a isolated private network separate from my home network and so there would be no interference from my private network to my home network. These VMs are not able to access my home network or the internet unless I add a router or firewall later
 
 - First, I went to the web console and clicked `Create` > `Linux Bridge`
