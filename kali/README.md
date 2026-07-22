@@ -131,33 +131,10 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 
 - We can clearly see that my Kali Linux VM (`10.10.10.20`) had `Alisha`'s credentials and used them to log into the VM via RDP, making it appear as though `Alisha` had logged in herself. This represents inital access through the use of valid credentials over RDP
  
-## What is `Kerberoasting`
-- Kerberoasting is a post-exploitation attack against Kerberos authentication in Active Directory that targets domain service accounts
+## What is `Golden Ticket`
 
-- The attack begins when an attacker has access to any authenticated domain user account. Using that account, they send a `TGS-REQ` (Ticket Granting Service Request) to the Key Distribution Center (KDC) for a service associated with a specific Service Principal Name (SPN). If the request is valid, the KDC returns a `TGS-REP` (Ticket Granting Service Reply) containing a service ticket
+- A Golden Ticket attack is a post exploitation attack against Kerberos authentication in Active Directory that allows an attacker to forge a valid Ticket Granting Ticket (TGT) and impersonate any user in the domain
 
-- The service ticket is encrypted using the service account's key, which is derived from the service account's password. Although the attacker cannot directly decrypt the ticket, they can extract the encrypted service ticket and perform offline password cracking. For each password guess, they derive the corresponding Kerberos key and attempt to decrypt the ticket. If decryption succeeds, the guessed password (or its equivalent key) is correct, allowing the attacker to recover the service account's credentials
+- The attack begins after an attacker has compromised a Domain Controller (or otherwise obtained the password hash of the `KRBTGT` account). Since every Kerberos TGT is signed using the `KRBTGT` account's secret key, possession of this hash allows the attacker to create their own forged `TGT` with arbitrary user identities, group memberships (such as Domain Admins), and expiration times
 
-- We will first create a service account named `sqlservice` with a weak password in the DC
-```
-New-ADUser -Name "sqlservice" -SamAccountName "sqlservice" -UserPrincipalName "sqlservice@homelab.local" -Enabled $true -AccountPassword(ConvertTo-SecureString "summer2000" -AsPlainText -Force)
-```
-- Then, I attached a SPN to that account
-```
-setspn -a MSSQLSvc/sql01.homelab.local:1433 sqlservice
-```
-- Lastly, I verified if the SPN was successfully registered
-```
-setspn -q MSSQLSvc/sql01.homelab.local:1433
-```
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/ce77dae9-cf0f-4cf9-9da2-3e5738e28136" />
-</p>
-
-- Now, we'll run a similar command to the one we used earlier to enumerate users, but this time we'll enumerate Service Principal Names (SPNs) and save it into `hash2.txt`
-```
-impacket-GetUserSPNs homelab.local/Alisha:welcome1 -dc-ip 10.10.10.10 -request
-```
-<p align="center">
-WIP
-</p>
+- Instead of requesting an initial TGT from the Key Distribution Center (KDC), the attacker injects the forged TGT into their session and presents it to the KDC when requesting service tickets (`TGS-REQ`). Because the forged TGT is correctly signed with the `KRBTGT` key, the KDC considers it legitimate and issues valid service tickets (`TGS-REP`) for requested services. This enables the attacker to authenticate as virtually any user and gain persistent, domain-wide access until the `KRBTGT` account password is reset twice
