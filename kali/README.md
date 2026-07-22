@@ -138,3 +138,9 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 - The attack begins after an attacker has compromised a Domain Controller (or otherwise obtained the password hash of the `KRBTGT` account). Since every Kerberos TGT is signed using the `KRBTGT` account's secret key, possession of this hash allows the attacker to create their own forged `TGT` with arbitrary user identities, group memberships (such as Domain Admins), and expiration times
 
 - Instead of requesting an initial TGT from the Key Distribution Center (KDC), the attacker injects the forged TGT into their session and presents it to the KDC when requesting service tickets (`TGS-REQ`). Because the forged TGT is correctly signed with the `KRBTGT` key, the KDC considers it legitimate and issues valid service tickets (`TGS-REP`) for requested services. This enables the attacker to authenticate as virtually any user and gain persistent, domain-wide access until the `KRBTGT` account password is reset twice
+
+### Targeting the DC as Administrator
+- Now, let's assume we already have the Domain Administrator credentials, we can run the below command and this pulls every account hash from the DC's database including `krbtgt`
+```
+impacket-secretsdump homelab.local/administrator:AdminPassword@10.10.10.10
+```
