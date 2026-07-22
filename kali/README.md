@@ -1,5 +1,5 @@
 # Kali Linux
-- Now that we have built our own AD environment, we will now going to pretend to be an attacker and attack our own domain. I will explore three attacks: `AS-REP Roasting`, `Golden Tickets` and `Pass-the-Hash`
+- Now that we have built our own AD environment, we will now going to pretend to be an attacker and attack our own domain. I will explore two attacks: `AS-REP Roasting` & `Golden Tickets`
 
 ## What is `AS-REP Roasting`
 - Normally, when a user authenticates with Kerberos, the client sends an `AS-REQ` containing the client's username and pre-authentication data. This pre-authentication data is typically an encrypted timestamp (`PA-ENC-TIMESTAMP`), which is encrypted using a key derived from the user's password. The Key Distribution Center (KDC) uses the same password-derived key to decrypt the timestamp and verify that the client knows the correct password. If the timestamp is successfully decrypted and valid, the KDC returns an `AS-REP` containing a Ticket Granting Ticket (TGT), which is encrypted with the `krbtgt` account's key, and a copy of the session key encrypted with the user's password-derived key
