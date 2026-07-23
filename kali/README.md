@@ -1,11 +1,5 @@
 # Kali Linux
-- Now that we have built our own AD environment, we will now going to pretend to be an attacker and attack our own domain. I will explore two attacks: `AS-REP Roasting` & `Golden Tickets`
-
-## What is `AS-REP Roasting`
-- Normally, when a user authenticates with Kerberos, the client sends an `AS-REQ` containing the client's username and pre-authentication data. This pre-authentication data is typically an encrypted timestamp (`PA-ENC-TIMESTAMP`), which is encrypted using a key derived from the user's password. The Key Distribution Center (KDC) uses the same password-derived key to decrypt the timestamp and verify that the client knows the correct password. If the timestamp is successfully decrypted and valid, the KDC returns an `AS-REP` containing a Ticket Granting Ticket (TGT), which is encrypted with the `krbtgt` account's key, and a copy of the session key encrypted with the user's password-derived key
-
-- In an `AS-REP` roasting attack, the target account has Kerberos pre-authentication disabled. Because the KDC no longer requires the client to prove knowledge of the user's password before issuing a ticket, anyone can request an `AS-REP` for that account. The `AS-REP` still contains the TGT and the session key encrypted with the user's password-derived key. An attacker can capture this response and perform an offline brute force or dictionary attack against the encrypted session key. For each password guess, the attacker derives the corresponding key and attempts to decrypt the encrypted session key. If the decryption succeeds, the password guess is correct
-
+- Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. We will begin with `Nmap` for `Reconnaissance` before demonstrating the `AS-REP Roasting` and `Golden Tickets` attacks
 ### Setting up Kali Linux
 - We are now going to setup Kali Linux and grab the lightweight Kali Linux Installer ISO from the official Kali website. For the sake of brevity, I am not going to show the process of allocating RAM, CPU, etc. to this VM as I have already done that with the other 3 VMs I setup and the VM Configuration can be read on the main README of this project
 
@@ -49,6 +43,25 @@
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/862a7db6-c6e3-43b8-a7fe-38df2a4726bc" />
 </p>
+
+## What is `Nmap`
+- Nmap (Network Mapper) is a network reconnaissance and enumeration tool used to discover hosts, identify open ports, detect running services, and gather information about devices on a network. It is commonly used by system administrators for network management and by security professionals during security assessments and penetration testing
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2efee528-2ccf-4d88-a50f-d0138ec2c6ba" />
+</p>
+
+- These open ports and services tell us a lot about the DC and each can be a door for the attacker per se. For example port `53` where `DNS` is running which is expected because this is on the DC. `Kereberos-sec` is running on port `88` and that confirms this is a domain controller. Port `135` has `msrpc` which is a windows remote procedure calls used for lots of admin activity. Ports `139` and `445` are for `NetBIOS` and `SMB` respectively and this is for file sharing. Ports `389` and `636` are for `LDAP` and `LDAPS` respectively and this is the AD query port. Port `464` is the kerberos password change port. Port `593` is RPC over HTTP aka remote management. Ports `3268` and `3269` are global catalog LDAP which is a domain wide AP search port and finally we have port `5985` which is `WSMan` which is `WinRM`
+
+- We can see when I ran with the `-sV` option, it confirms a lot of what we said before
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e8b648c4-4481-4c90-8a21-3e93a8374e87" />
+</p>
+
+## What is `AS-REP Roasting`
+- Normally, when a user authenticates with Kerberos, the client sends an `AS-REQ` containing the client's username and pre-authentication data. This pre-authentication data is typically an encrypted timestamp (`PA-ENC-TIMESTAMP`), which is encrypted using a key derived from the user's password. The Key Distribution Center (KDC) uses the same password-derived key to decrypt the timestamp and verify that the client knows the correct password. If the timestamp is successfully decrypted and valid, the KDC returns an `AS-REP` containing a Ticket Granting Ticket (TGT), which is encrypted with the `krbtgt` account's key, and a copy of the session key encrypted with the user's password-derived key
+
+- In an `AS-REP` roasting attack, the target account has Kerberos pre-authentication disabled. Because the KDC no longer requires the client to prove knowledge of the user's password before issuing a ticket, anyone can request an `AS-REP` for that account. The `AS-REP` still contains the TGT and the session key encrypted with the user's password-derived key. An attacker can capture this response and perform an offline brute force or dictionary attack against the encrypted session key. For each password guess, the attacker derives the corresponding key and attempts to decrypt the encrypted session key. If the decryption succeeds, the password guess is correct
 
 - Now, two things to make this go smoothly. I will set `Alisha`'s password to `welcome1` and check `Do not require Kerberos pre-authentication` but first I had to change the password settings so I could actually set her password to that value and then do `gpupdate /force` to make sure it applied everyone in the domain 
 
