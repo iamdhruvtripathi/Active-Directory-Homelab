@@ -1,5 +1,5 @@
 # Kali Linux
-- Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. We will begin with `Nmap` for `Reconnaissance` before demonstrating the `AS-REP Roasting` and `Golden Tickets` attacks
+- Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. We will begin with `Nmap` for `Reconnaissance` before demonstrating the `AS-REP Roasting`, `Golden Tickets` and `Password Spraying` attacks
 ### Setting up Kali Linux
 - We are now going to setup Kali Linux and grab the lightweight Kali Linux Installer ISO from the official Kali website. For the sake of brevity, I am not going to show the process of allocating RAM, CPU, etc. to this VM as I have already done that with the other 3 VMs I setup and the VM Configuration can be read on the main README of this project
 
@@ -57,6 +57,8 @@
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e8b648c4-4481-4c90-8a21-3e93a8374e87" />
 </p>
+
+## Password Spraying (W.I.P)
 
 ## What is `AS-REP Roasting`
 - Normally, when a user authenticates with Kerberos, the client sends an `AS-REQ` containing the client's username and pre-authentication data. This pre-authentication data is typically an encrypted timestamp (`PA-ENC-TIMESTAMP`), which is encrypted using a key derived from the user's password. The Key Distribution Center (KDC) uses the same password-derived key to decrypt the timestamp and verify that the client knows the correct password. If the timestamp is successfully decrypted and valid, the KDC returns an `AS-REP` containing a Ticket Granting Ticket (TGT), which is encrypted with the `krbtgt` account's key, and a copy of the session key encrypted with the user's password-derived key
