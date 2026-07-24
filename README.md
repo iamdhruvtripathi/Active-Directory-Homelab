@@ -70,7 +70,7 @@ The lab provides hands-on experience with enterprise Active Directory operations
 #### VM 4: Kali Linux (Attacker Machine)
 * Network:
   * NIC 1 connected to vmbr1 (Isolated network)
-* OS: Kali Linux (rolling release)
+* Operating System: Kali Linux (rolling release)
 * Role: Simulates an attacker on the internal network for red team exercises
 * Key Tools: impacket, netexec, smbexec, kerbrute, john, nmap
 
