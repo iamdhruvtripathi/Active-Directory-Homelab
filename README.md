@@ -12,7 +12,7 @@ Active Directory (AD) is a centralized identity and access management solution u
 
 This project was developed to provide a hands-on Active Directory lab environment using Proxmox Virtual Environment (VE). By leveraging Microsoft's free evaluation operating systems and Proxmox virtualization, anyone can build a realistic Windows domain in a safe, isolated homelab environment without requiring expensive hardware or software licenses
 
-The lab provides hands-on experience with enterprise Active Directory operations, including identity management, authentication, authorization, DNS, DHCP, Group Policy, certificate services, and security configuration. Beyond administration, the environment is designed for adversary simulation and detection engineering, allowing offensive techniques to be performed safely while analyzing security events through Sysmon and Splunk
+The lab provides hands-on experience with enterprise Active Directory operations, including identity management, authentication, authorization, DNS, DHCP, Group Policy, certificate services, and security configuration. Beyond administration, the environment is designed for adversary simulation and log analysis, allowing offensive techniques to be performed safely while analyzing security events through Sysmon and Splunk
 
 ## Network Architecture
 - TBD
