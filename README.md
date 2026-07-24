@@ -17,6 +17,22 @@ The lab provides hands-on experience with enterprise Active Directory operations
 ## Network Architecture
 - TBD
 
+## Repository Structure
+
+| Folder | Contents |
+|--------|----------|
+| `setup-domain-controller` | DC installation and AD DS promotion steps |
+| `setup-client-vm` | Windows 11 domain join and configuration |
+| `ad-cs-and-dhcp` | Certificate Services and DHCP configuration |
+| `dns` | DNS setup and zone configuration |
+| `file-and-print-server` | File sharing and print services |
+| `security-groups-and-GPOs` | Group Policy and security group configuration |
+| `powershell-automation` | Automation scripts for AD administration |
+| `windows-event-logs` | Event log configuration and monitoring |
+| `sysmon` | Sysmon installation and SwiftOnSecurity configuration |
+| `splunk` | Splunk Universal Forwarder and Enterprise setup |
+| `kali` | Red team attack walkthroughs |
+
 ## Project Specifications
 
 ### Infrastructure Outline
@@ -117,19 +133,3 @@ The following attacks were simulated against the lab environment from the Kali L
 | **Offline Hash Cracking** | Use long, random passwords, especially for service accounts, to make cracking impractical |
 | **Credential Dumping (DCSync)** | Restrict replication permissions and limit Domain Admin privileges |
 | **Golden Ticket** | Rotate the krbtgt password twice after a domain compromise and monitor Kerberos ticket activity (Event IDs `4768` and `4769`) |
-
-## Repository Structure
-
-| Folder | Contents |
-|--------|----------|
-| `setup-domain-controller` | DC installation and AD DS promotion steps |
-| `setup-client-vm` | Windows 11 domain join and configuration |
-| `ad-cs-and-dhcp` | Certificate Services and DHCP configuration |
-| `dns` | DNS setup and zone configuration |
-| `file-and-print-server` | File sharing and print services |
-| `security-groups-and-GPOs` | Group Policy and security group configuration |
-| `powershell-automation` | Automation scripts for AD administration |
-| `windows-event-logs` | Event log configuration and monitoring |
-| `sysmon` | Sysmon installation and SwiftOnSecurity configuration |
-| `splunk` | Splunk Universal Forwarder and Enterprise setup |
-| `kali` | Red team attack walkthroughs |
