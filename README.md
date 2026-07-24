@@ -78,7 +78,7 @@ The lab provides hands-on experience with enterprise Active Directory operations
 
 * `vmbr0` (Management Network): Used for Proxmox management and to access the Splunk Web UI from the MacBook Pro
 * `vmbr1` (Isolated Lab Network): Private virtual bridge with no physical uplink that hosts all Active Directory traffic between the Domain Controller, Windows 11 client, Splunk server and Kali
-* IP Addressing: The Domain Controller and the Splunk server's `ens19` interface use static IP addresses on `vmbr1`. The Windows 11 client receives its IP address from the Domain Controller via DHCP, while the Splunk server's `ens18` interface obtains an IP address from the home network via DHCP
+* IP Addressing: The Domain Controller and the Splunk server's `ens19` interface use static IP addresses on `vmbr1`. The Windows 11 client receives its IP address from the Domain Controller via DHCP, while the Splunk server's `ens18` interface obtains an IP address from the home network via DHCP on `vmbr0`
 * DNS & Authentication: The Domain Controller provides Active Directory, DNS, DHCP, File & Printer, and AD CS services for all domain-joined systems
 * Centralized Logging: Sysmon and Splunk Universal Forwarder send logs from the Domain Controller and Windows 11 client to the Splunk Enterprise server over the isolated network
 
