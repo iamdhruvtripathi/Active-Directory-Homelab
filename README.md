@@ -82,32 +82,32 @@ The lab provides hands-on experience with enterprise Active Directory operations
 * DNS & Authentication: The Domain Controller provides Active Directory, DNS, DHCP, File & Printer, and AD CS services for all domain-joined systems
 * Centralized Logging: Sysmon and Splunk Universal Forwarder send logs from the Domain Controller and Windows 11 client to the Splunk Enterprise server over the isolated network
 
-# Red Team Exercises
+## Red Team Exercises
 
 The following attacks were simulated against the lab environment from the Kali Linux attacker machine. All exercises were performed in an isolated, controlled environment for educational purposes
 
-## Recon
+### Recon
 
 | Attack | Tool | Description |
 |--------|------|-------------|
 | Port Scanning | `nmap` | Identified open ports and running services on the Domain Controller (DC) without credentials |
 | Password Spraying | `kerbrute` | Sprayed one password across all domain users to identify weak credentials without triggering account lockouts |
 
-## Credential Attacks
+### Credential Attacks
 
 | Attack | Tool | Description |
 |--------|------|-------------|
 | AS-REP Roasting | `impacket-GetNPUsers` | Extracted crackable hashes from accounts with Kerberos pre-authentication disabled |
 | Offline Hash Cracking | `john` | Cracked extracted Kerberos hashes using the `rockyou.txt` wordlist |
 
-## Privilege Escalation & Persistence
+### Privilege Escalation & Persistence
 
 | Attack | Tool | Description |
 |--------|------|-------------|
 | Credential Dumping | `impacket-secretsdump` | Dumped all domain account hashes, including the `krbtgt` account, from the Domain Controller |
 | Golden Ticket | `impacket-ticketer` | Forged a Kerberos TGT signed with the `krbtgt` AES256 key to impersonate Administrator indefinitely |
 
-## Defensive Lessons Learned
+### Defensive Lessons Learned
 
 | Attack | Defensive Lesson |
 |--------|------------------|
