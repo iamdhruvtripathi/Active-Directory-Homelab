@@ -58,7 +58,22 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e8b648c4-4481-4c90-8a21-3e93a8374e87" />
 </p>
 
-## Password Spraying (W.I.P)
+## What is `Password Spraying`
+Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
+
+- In Kali, I first created a userlist containing the passwords for the domains accounts. For learning purposes, one of them I already know which is `welcome` for `Alisha`'s account
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/08e2d872-c8de-47eb-ac43-7ed801a71c90" />
+</p>
+
+- Then, I starting spraying the passwords
+```
+kerbrute passwordspray -d homelab.local --dc 10.10.10.10 users.txt <password>
+```
+- I tested it with two passwords, `Password01` and `welcome1` and we can see that while the first password did not work, the second one did work for `Alisha`'s account only which is expected
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/16752e67-6ba0-421d-b1e4-8f9abe6eb482" />
+</p>
 
 ## What is `AS-REP Roasting`
 - Normally, when a user authenticates with Kerberos, the client sends an `AS-REQ` containing the client's username and pre-authentication data. This pre-authentication data is typically an encrypted timestamp (`PA-ENC-TIMESTAMP`), which is encrypted using a key derived from the user's password. The Key Distribution Center (KDC) uses the same password-derived key to decrypt the timestamp and verify that the client knows the correct password. If the timestamp is successfully decrypted and valid, the KDC returns an `AS-REP` containing a Ticket Granting Ticket (TGT), which is encrypted with the `krbtgt` account's key, and a copy of the session key encrypted with the user's password-derived key
