@@ -116,7 +116,7 @@ The following attacks were simulated against the lab environment from the Kali L
 | **AS-REP Roasting** | Enable Kerberos pre-authentication for all accounts |
 | **Offline Hash Cracking** | Use long, random passwords, especially for service accounts, to make cracking impractical |
 | **Credential Dumping (DCSync)** | Restrict replication permissions and limit Domain Admin privileges |
-| **Golden Ticket** | Rotate the **krbtgt** password twice after a domain compromise and monitor Kerberos ticket activity (Event IDs 4768 and 4769) |
+| **Golden Ticket** | Rotate the krbtgt password twice after a domain compromise and monitor Kerberos ticket activity (Event IDs 4768 and 4769) |
 
 ## Repository Structure
 
