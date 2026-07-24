@@ -68,7 +68,8 @@ The lab provides hands-on experience with enterprise Active Directory operations
 * Role: Listens on TCP port `9997` for incoming sandbox telemetry and hosts the Splunk Web UI on port `8000`
 
 #### VM 4: Kali Linux (Attacker Machine)
-* Network: NIC 1 connected to vmbr1 (Isolated network)
+* Network:
+  * NIC 1 connected to vmbr1 (Isolated network)
 * OS: Kali Linux (rolling release)
 * Role: Simulates an attacker on the internal network for red team exercises
 * Key Tools: impacket, netexec, smbexec, kerbrute, john, nmap
