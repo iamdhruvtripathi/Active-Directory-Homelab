@@ -15,7 +15,9 @@ This project was developed to provide a hands-on Active Directory lab environmen
 The lab provides hands-on experience with enterprise Active Directory operations, including identity management, authentication, authorization, DNS, DHCP, Group Policy, certificate services, and security configuration. Beyond administration, the environment is designed for adversary simulation and log analysis, allowing offensive techniques to be performed safely while analyzing security events through Sysmon and Splunk
 
 ## Network Architecture
-- TBD
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d7f4524c-5df5-4eb5-a6f2-c6224dc4a70e" />
+</p>
 
 ## Repository Structure
 
