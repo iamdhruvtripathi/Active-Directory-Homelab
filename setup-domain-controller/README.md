@@ -175,7 +175,7 @@ Note: It is a capitalized "O" not a 0
 - Now, it has finished and logging in looks a bit different
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8fa94dc2-e9be-4257-816f-2ec0a2611e12" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e2ba70ef-ba7d-4e65-b94c-3d66632b1c86" />
 </p>
 
 - Once we login, we can see the `AD DS`, `DNS` and `File and Storage Services` on the left side
