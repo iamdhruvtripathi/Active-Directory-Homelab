@@ -54,16 +54,31 @@
    
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f94504a4-cbcb-4ac9-97a3-4c8ec723c3c5" />
 
+⚠️ August 4th Edit: When I tried reinstalling the Windows VM 11, I was not able to access the `I don't have Internet` link from the above steps and so this may have been from an update from Microsoft because the bypass command did not work as well. Below are the steps to bypass this issue
+
+- I clicked `Set up for work or school`
+
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f0380a0c-3df5-4221-a99a-f23b2d8dc6fc" />
+
 
 - First thing to do was to move this Windows VM 11 Client to `vmbr1`
 
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6e6ab4a1-2646-4c3f-9426-ee5fb155ba16" />
 
+- Then I clicked `Sign-in options`
+
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/be8f14cf-e78e-4955-a073-9aed035e27d1" />
+
+- After the I clicked `Domain-join instead` and arrived at this screen
+
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/24f261b0-ef5e-49da-9934-92939a6f1965" />
+
+- I then entered my username and password and went through the security questions section and arrived at this screen. Note that at this time for me it downloaded a lot of updates so I had to wait a bit
+
 - Next thing before I join it to the domain is to set a static IP and point the DNS to the DC. As you can see below, I set the IP address of the Client VM to `10.10.10.11` and the DNS server to `10.10.10.10`
 
    
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/96135446-c14a-45b0-bc87-04399f82fc2a" />
-
    
 
 - As a confirmation, I pinged the DC and we can see we received a successful reply :D
