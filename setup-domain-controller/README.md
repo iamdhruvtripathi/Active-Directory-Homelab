@@ -121,7 +121,7 @@ Note: It is a capitalized "O" not a 0
 - Our server is already highlighted :D
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bc29052b-4b2d-48eb-8944-258071cb6a41" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/57b618f8-1faf-45d6-86fe-336184e3ea1d" />
 </p>
 
 - From the server roles, I selected AD DS
@@ -169,7 +169,7 @@ Note: It is a capitalized "O" not a 0
 - Since all prerequisites pass, we click `Install`
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/387ab34b-4bcb-4c62-a971-e69bea7ec680" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7bac0fad-9323-486b-86de-d6fe77dfc4fe" />
 </p>
 
 - Now, it has finished and logging in looks a bit different
