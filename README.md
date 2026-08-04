@@ -51,7 +51,7 @@ The lab provides hands-on experience with enterprise Active Directory operations
 
 | System | Operating System 
 |--------|-------------------|
-| **Domain Controller** | Windows Server 2025 Evaluation
+| **Domain Controller** | Windows Server 2022 Evaluation
 | **Client Workstation** | Windows 11 Pro Enterprise Evaluation
 | **SIEM** | Ubuntu Linux
 | **Attacker Machine** | Kali Linux
