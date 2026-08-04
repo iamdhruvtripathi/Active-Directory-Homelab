@@ -1,10 +1,10 @@
 # Setup - Domain Controller VM
 - This part details about downloading and uploading the ISO, and creating the Domain Controller
 
-## Downloading the Windows Server 2025 ISO
+## Downloading the Windows Server 2022 ISO
 - I went to the official Microsoft website to grab this ISO
 
-  <img width="1512" height="826" alt="image" src="https://github.com/user-attachments/assets/894106f6-5e12-480a-8874-edfe36fd8dda" />
+  <img width="1512" height="827" alt="image" src="https://github.com/user-attachments/assets/8a279fdb-3634-4042-a39a-1ee22970326b" />
 
 ## Downloading the Windows 11 ISO
 - I did the same thing for downloading Windows 11 (Client VM)
@@ -47,31 +47,29 @@
 - We are finally here and I went through the options
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/da81b6d7-2cf9-4b5a-a1dd-1a61a0fc8d59" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/33216a73-3d92-40de-af81-40ee88c6d3e7" />
 </p>
 
-- I selected the highlighted option
+- I selected `Windows Server 2022 Standard Evaluation (Desktop Experience)`
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8d4623ca-9eb2-45aa-9eb5-f1415ce92d2e" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/7d3ad5ea-4e7e-4a9b-80ce-774bd852236c" />
 </p>
 
-- I selected `Windows Server 2025 Standard Evaluation (Desktop Experience)`
+- I selected the second option
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2c4b54c4-0ab3-44d2-ac01-1424e033c8e9" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a274ccce-3feb-4366-bd49-85b620227c1c" />
 </p>
 
-- I selected the highlighted option
-
+- I left this as default (note that we did allocate 32 GB to this drive in the Proxmox UI)
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/fca9279e-eb84-430f-a5d6-1374dac8b205" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6ce41162-41ea-440e-bfbd-5c81d1d36362" />
 </p>
 
-- Click install
-
+- The installation has started
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/20fe2713-39a2-4dbf-a455-37bc2244da3e" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/265fe9fe-416f-45da-8afb-8718db1ed502" />
 </p>
 
 - The Windows OS has finished installing, we are now at this screen
@@ -95,7 +93,7 @@
 - I successfully changed the IP address via the run box (`Win + R`)
 
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b47a4dfa-6ff0-48db-bc7b-d9fded11de93" />
+<img width="910" height="566" alt="image" src="https://github.com/user-attachments/assets/9d9e5a0c-ffe0-46a5-b8e2-542c5ced2916" />
 </p>
 
 - I also configured the DNS server to point to the Domain Controller (`10.10.10.10` on the DC, and the DC's static IP on client machines). When the server is promoted to a Domain Controller, it also becomes a DNS server. Active Directory Domain Services (AD DS) registers SRV records in DNS, which advertise services such as LDAP and Kerberos. The Domain Controller queries its own DNS to locate these services, while client computers query the DC's DNS server for the SRV records to discover the Domain Controller before joining the domain or authenticating
