@@ -60,11 +60,6 @@
 
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f0380a0c-3df5-4221-a99a-f23b2d8dc6fc" />
 
-
-- First thing to do was to move this Windows VM 11 Client to `vmbr1`
-
-  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6e6ab4a1-2646-4c3f-9426-ee5fb155ba16" />
-
 - Then I clicked `Sign-in options`
 
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/be8f14cf-e78e-4955-a073-9aed035e27d1" />
@@ -72,6 +67,10 @@
 - After the I clicked `Domain-join instead` and arrived at this screen
 
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/24f261b0-ef5e-49da-9934-92939a6f1965" />
+
+- First thing to do was to move this Windows VM 11 Client to `vmbr1`
+
+  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6e6ab4a1-2646-4c3f-9426-ee5fb155ba16" />
 
 - I then entered my username and password and went through the security questions section and arrived at this screen. Note that at this time for me it downloaded a lot of updates so I had to wait a bit
 
