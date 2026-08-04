@@ -39,11 +39,6 @@
   <img width="1512" height="690" alt="image" src="https://github.com/user-attachments/assets/022db911-c04f-4e5d-bb2a-dfea6b2009bb" />
 
 ## Windows Installation (Domain Controller VM)
-- Below are the steps for the standard Windows installation. I hit `Enter` for this
-<p align="center">
-  <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/c307b470-4cb5-4142-aa97-3a057104f088" />
-</p>
-
 - We are finally here and I went through the options
 
 <p align="center">
