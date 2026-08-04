@@ -64,7 +64,7 @@
 
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/be8f14cf-e78e-4955-a073-9aed035e27d1" />
 
-- After the I clicked `Domain-join instead` and arrived at this screen. After this, I entered my username and password and went through the security questions section and arrived at this screen. Note that at this time for me it downloaded a lot of updates so I had to wait a bit
+- After the I clicked `Domain-join instead` and arrived at this screen. After this, I entered my username and password and went through the security questions section. Note that at this time for me it downloaded a lot of updates so I had to wait a bit
 
   <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/24f261b0-ef5e-49da-9934-92939a6f1965" />
 
