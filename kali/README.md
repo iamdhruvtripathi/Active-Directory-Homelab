@@ -44,50 +44,6 @@
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/862a7db6-c6e3-43b8-a7fe-38df2a4726bc" />
 </p>
 
-## What is `Nmap`
-- Nmap (Network Mapper) is a network reconnaissance and enumeration tool used to discover hosts, identify open ports, detect running services, and gather information about devices on a network. It is commonly used by system administrators for network management and by security professionals during security assessments and penetration testing
-
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2efee528-2ccf-4d88-a50f-d0138ec2c6ba" />
-</p>
-
-- These open ports and services tell us a lot about the DC and each can be a door for the attacker per se. For example port `53` where `DNS` is running which is expected because this is on the DC. `Kereberos-sec` is running on port `88` and that confirms this is a domain controller. Port `135` has `msrpc` which is a windows remote procedure calls used for lots of admin activity. Ports `139` and `445` are for `NetBIOS` and `SMB` respectively and this is for file sharing. Ports `389` and `636` are for `LDAP` and `LDAPS` respectively and this is the AD query port. Port `464` is the kerberos password change port. Port `593` is RPC over HTTP aka remote management. Ports `3268` and `3269` are global catalog LDAP which is a domain wide AP search port and finally we have port `5985` which is `WSMan` which is `WinRM`
-
-- We can see when I ran with the `-sV` option, it confirms a lot of what we said before
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e8b648c4-4481-4c90-8a21-3e93a8374e87" />
-</p>
-
-## What is `Password Spraying`
-Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
-
-- In Kali, I first created a userlist containing the passwords for the domains accounts. For learning purposes, one of them I already know which is `welcome` for `Alisha`'s account
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/08e2d872-c8de-47eb-ac43-7ed801a71c90" />
-</p>
-
-- I needed to install `Go` for this
-```
-sudo apt update
-sudo apt install git golang -y
-```
-- Then I installed `kerbrute`
-```
-git clone https://github.com/ropnop/kerbrute.git
-cd kerbrute
-go build -o kerbrute
-./kerbrute -h
-```
-
-- Then, I starting spraying the passwords
-```
-./kerbrute passwordspray -d homelab.local --dc 10.10.10.10 users.txt <password>
-```
-- I tested it with two passwords, `Password01` and `welcome1` and we can see that while the first password did not work, the second one did work for `Alisha`'s account only which is expected
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/16752e67-6ba0-421d-b1e4-8f9abe6eb482" />
-</p>
-
 ## What is `AS-REP Roasting`
 - Normally, when a user authenticates with Kerberos, the client sends an `AS-REQ` containing the client's username and pre-authentication data. This pre-authentication data is typically an encrypted timestamp (`PA-ENC-TIMESTAMP`), which is encrypted using a key derived from the user's password. The Key Distribution Center (KDC) uses the same password-derived key to decrypt the timestamp and verify that the client knows the correct password. If the timestamp is successfully decrypted and valid, the KDC returns an `AS-REP` containing a Ticket Granting Ticket (TGT), which is encrypted with the `krbtgt` account's key, and a copy of the session key encrypted with the user's password-derived key
 
@@ -173,6 +129,52 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 </p>
 
 - We can clearly see that my Kali Linux VM (`10.10.10.20`) had `Alisha`'s credentials and used them to log into the VM via RDP, making it appear as though `Alisha` had logged in herself. This represents inital access through the use of valid credentials over RDP
+
+## What is Kerberoasting? 🚧 IN PROGRESS 🚧
+
+<!--## What is `Nmap`
+- Nmap (Network Mapper) is a network reconnaissance and enumeration tool used to discover hosts, identify open ports, detect running services, and gather information about devices on a network. It is commonly used by system administrators for network management and by security professionals during security assessments and penetration testing
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2efee528-2ccf-4d88-a50f-d0138ec2c6ba" />
+</p>
+
+- These open ports and services tell us a lot about the DC and each can be a door for the attacker per se. For example port `53` where `DNS` is running which is expected because this is on the DC. `Kereberos-sec` is running on port `88` and that confirms this is a domain controller. Port `135` has `msrpc` which is a windows remote procedure calls used for lots of admin activity. Ports `139` and `445` are for `NetBIOS` and `SMB` respectively and this is for file sharing. Ports `389` and `636` are for `LDAP` and `LDAPS` respectively and this is the AD query port. Port `464` is the kerberos password change port. Port `593` is RPC over HTTP aka remote management. Ports `3268` and `3269` are global catalog LDAP which is a domain wide AP search port and finally we have port `5985` which is `WSMan` which is `WinRM`
+
+- We can see when I ran with the `-sV` option, it confirms a lot of what we said before
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e8b648c4-4481-4c90-8a21-3e93a8374e87" />
+</p> -->
+
+## What is `Password Spraying`
+Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
+
+- In Kali, I first created a userlist containing the passwords for the domains accounts. For learning purposes, one of them I already know which is `welcome` for `Alisha`'s account
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/08e2d872-c8de-47eb-ac43-7ed801a71c90" />
+</p>
+
+- I needed to install `Go` for this
+```
+sudo apt update
+sudo apt install git golang -y
+```
+- Then I installed `kerbrute`
+```
+git clone https://github.com/ropnop/kerbrute.git
+cd kerbrute
+go build -o kerbrute
+./kerbrute -h
+```
+
+- Then, I starting spraying the passwords
+```
+./kerbrute passwordspray -d homelab.local --dc 10.10.10.10 users.txt <password>
+```
+- I tested it with two passwords, `Password01` and `welcome1` and we can see that while the first password did not work, the second one did work for `Alisha`'s account only which is expected
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/16752e67-6ba0-421d-b1e4-8f9abe6eb482" />
+</p>
  
 ## What is a `Golden Ticket`
 
