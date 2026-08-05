@@ -1,3 +1,5 @@
+🚧 _Updates coming soon to this lab_ 🚧
+
 # Active-Directory Homelab
 
 <p align="center">
