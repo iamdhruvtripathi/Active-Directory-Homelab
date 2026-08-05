@@ -1,4 +1,4 @@
-🚧 _Updates coming soon to this lab_ 🚧
+🚧 _I am going to add some new content to this lab (coming soon)_ 🚧
 
 # Active-Directory Homelab
 
