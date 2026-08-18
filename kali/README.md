@@ -1,5 +1,6 @@
 # Kali Linux
-- Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. We will begin with `Nmap` for `Reconnaissance` before demonstrating the `AS-REP Roasting`, `Golden Tickets` and `Password Spraying` attacks
+- Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. I began with `AS-REP Roasting`, `Kerberoasting`, `Password Spraying` and `Golden Tickets` attacks
+
 ### Setting up Kali Linux
 - We are now going to setup Kali Linux and grab the lightweight Kali Linux Installer ISO from the official Kali website. For the sake of brevity, I am not going to show the process of allocating RAM, CPU, etc. to this VM as I have already done that with the other 3 VMs I setup and the VM Configuration can be read on the main README of this project
 
