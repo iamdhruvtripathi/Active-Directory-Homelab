@@ -139,19 +139,7 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 
 - In a Kerberoasting attack, an attacker who has a valid domain account requests service tickets for accounts that have registered SPNs. The KDC normally allows authenticated users to request these tickets as part of normal Kerberos functionality. The attacker can capture the returned service ticket and extract the encrypted portion associated with the service account. Because this portion is encrypted using a key derived from the service account's password, the attacker can perform an offline brute-force or dictionary attack against it. For each password guess, the attacker derives the corresponding key and attempts to verify or decrypt the captured ticket data. If the guess produces the expected result, the service account's password has been recovered
 
-<!--## What is `Nmap`
-- Nmap (Network Mapper) is a network reconnaissance and enumeration tool used to discover hosts, identify open ports, detect running services, and gather information about devices on a network. It is commonly used by system administrators for network management and by security professionals during security assessments and penetration testing
-
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2efee528-2ccf-4d88-a50f-d0138ec2c6ba" />
-</p>
-
-- These open ports and services tell us a lot about the DC and each can be a door for the attacker per se. For example port `53` where `DNS` is running which is expected because this is on the DC. `Kereberos-sec` is running on port `88` and that confirms this is a domain controller. Port `135` has `msrpc` which is a windows remote procedure calls used for lots of admin activity. Ports `139` and `445` are for `NetBIOS` and `SMB` respectively and this is for file sharing. Ports `389` and `636` are for `LDAP` and `LDAPS` respectively and this is the AD query port. Port `464` is the kerberos password change port. Port `593` is RPC over HTTP aka remote management. Ports `3268` and `3269` are global catalog LDAP which is a domain wide AP search port and finally we have port `5985` which is `WSMan` which is `WinRM`
-
-- We can see when I ran with the `-sV` option, it confirms a lot of what we said before
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/e8b648c4-4481-4c90-8a21-3e93a8374e87" />
-</p> -->
+<!--
 
 ## What is `Password Spraying`
 Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
@@ -182,7 +170,8 @@ go build -o kerbrute
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/16752e67-6ba0-421d-b1e4-8f9abe6eb482" />
 </p>
- 
+
+<!--
 ## What is a `Golden Ticket`
 
 - A Golden Ticket attack is a post exploitation attack against Kerberos authentication in Active Directory that allows an attacker to forge a valid Ticket Granting Ticket (TGT) and impersonate any user in the domain
@@ -231,3 +220,4 @@ impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
 </p>
 
 - Above, the golden ticket forges a Kerberos Ticket Granting Ticket (`TGT`) that allows an attacker to authenticate as a privileged user, such as a Domain Administrator. We used the tool `smbexec` where when it is executed, it presents the forged `TGT` to the Key Distribution Center (KDC), which issues a legitimate service ticket (`TGS`) for the target SMB (`CIFS`) service because the forged TGT appears valid. The tool then uses this TGS to authenticate to the SMB service on the target system. Since the impersonated account has administrative privileges, `smbexec` leverages built-in Windows administrative features, such as creating and starting a temporary service, to execute commands remotely and provide an interactive shell. Therefore, the Golden Ticket enables trusted authentication, while the shell is obtained through legitimate Windows remote administration mechanisms
+!-->
