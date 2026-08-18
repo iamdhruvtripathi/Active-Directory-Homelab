@@ -130,7 +130,10 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 
 - We can clearly see that my Kali Linux VM (`10.10.10.20`) had `Alisha`'s credentials and used them to log into the VM via RDP, making it appear as though `Alisha` had logged in herself. This represents inital access through the use of valid credentials over RDP
 
-## What is Kerberoasting? 🚧 IN PROGRESS 🚧
+## What is Kerberoasting?
+- Normally, when a user or service authenticates to a Kerberos-protected service, the client first obtains a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). When the client wants to access a particular service, it sends a `TGS-REQ` to the KDC requesting a service ticket for that service's Service Principal Name (SPN). The KDC returns a `TGS-REP` containing a service ticket. This ticket includes information encrypted with the password-derived key of the account associated with the SPN, allowing the service to verify and authenticate the request
+
+- In a Kerberoasting attack, an attacker who has a valid domain account requests service tickets for accounts that have registered SPNs. The KDC normally allows authenticated users to request these tickets as part of normal Kerberos functionality. The attacker can capture the returned service ticket and extract the encrypted portion associated with the service account. Because this portion is encrypted using a key derived from the service account's password, the attacker can perform an offline brute-force or dictionary attack against it. For each password guess, the attacker derives the corresponding key and attempts to verify or decrypt the captured ticket data. If the guess produces the expected result, the service account's password has been recovered
 
 <!--## What is `Nmap`
 - Nmap (Network Mapper) is a network reconnaissance and enumeration tool used to discover hosts, identify open ports, detect running services, and gather information about devices on a network. It is commonly used by system administrators for network management and by security professionals during security assessments and penetration testing
