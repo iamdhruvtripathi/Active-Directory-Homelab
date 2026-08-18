@@ -18,7 +18,7 @@ The lab provides hands-on experience with enterprise Active Directory operations
 
 ## Network Architecture
 <p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/d7f4524c-5df5-4eb5-a6f2-c6224dc4a70e" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/38975126-8050-4303-8ae6-668eeff7178d" />
 </p>
 
 ## Repository Structure
