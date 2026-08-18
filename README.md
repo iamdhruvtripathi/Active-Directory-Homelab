@@ -127,9 +127,8 @@ The following attacks were simulated against the lab environment from the Kali L
 
 | Attack | Defensive Lesson |
 |--------|------------------|
-| **Port Scanning** | Close unnecessary ports and limit exposed services with firewalls and network segmentation |
 | **Password Spraying** | Use strong passwords, enable MFA, and monitor failed logins (Event ID `4625`) |
 | **AS-REP Roasting** | Enable Kerberos pre-authentication for all accounts |
-| **Offline Hash Cracking** | Use long, random passwords, especially for service accounts, to make cracking impractical |
-| **Credential Dumping (DCSync)** | Restrict replication permissions and limit Domain Admin privileges |
-| **Golden Ticket** | Rotate the krbtgt password twice after a domain compromise and monitor Kerberos ticket activity (Event IDs `4768` and `4769`) |
+| **Kerberoasting** | Use strong, random service account passwords and monitor Kerberos service ticket activity |
+| **Credential Dumping** | Restrict privileged access and replication permissions |
+| **Golden Ticket** | Rotate the `krbtgt` password twice after a domain compromise and monitor Kerberos ticket activity (Event IDs `4768` and `4769`) |
