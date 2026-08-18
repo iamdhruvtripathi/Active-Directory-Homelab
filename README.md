@@ -108,26 +108,20 @@ The lab provides hands-on experience with enterprise Active Directory operations
 
 The following attacks were simulated against the lab environment from the Kali Linux attacker machine. All exercises were performed in an isolated, controlled environment for educational purposes
 
-### Recon
-
-| Attack | Tool | Description |
-|--------|------|-------------|
-| Port Scanning | `nmap` | Identified open ports and running services on the Domain Controller (DC) without credentials |
-| Password Spraying | `kerbrute` | Sprayed one password across all domain users to identify weak credentials without triggering account lockouts |
-
 ### Credential Attacks
 
 | Attack | Tool | Description |
 |--------|------|-------------|
+| Password Spraying | `kerbrute` | Identified weak credentials across domain users |
 | AS-REP Roasting | `impacket-GetNPUsers` | Extracted crackable hashes from accounts with Kerberos pre-authentication disabled |
-| Offline Hash Cracking | `john` | Cracked extracted Kerberos hashes using the `rockyou.txt` wordlist |
+| Kerberoasting | Impacket | Extracted crackable Kerberos service account hashes |
 
 ### Privilege Escalation & Persistence
 
 | Attack | Tool | Description |
 |--------|------|-------------|
-| Credential Dumping | `impacket-secretsdump` | Dumped all domain account hashes, including the `krbtgt` account, from the Domain Controller |
-| Golden Ticket | `impacket-ticketer` | Forged a Kerberos TGT signed with the `krbtgt` AES256 key to impersonate Administrator indefinitely |
+| Credential Dumping | `impacket-secretsdump` | Dumped domain credential hashes, including the `krbtgt` account |
+| Golden Ticket | `impacket-ticketer` | Forged a Kerberos TGT using the `krbtgt` key to impersonate a privileged domain account |
 
 ### Defensive Lessons Learned
 
