@@ -49,7 +49,7 @@ The lab provides hands-on experience with enterprise Active Directory operations
 **Primary Management Device**
 * macOS (MacBook Pro) accessing the environment via Proxmox Web UI
 
-> ⚠️ Implementation Note: The majority of this lab was completed using Windows Server 2025 Evaluation. During the development of the `kali` attack demonstrations, the Domain Controller was switched to Windows Server 2022 Evaluation, as the Kerberos attack demonstration was successfully performed in that environment. The rest of the lab remains based on Windows Server 2025. Since the Active Directory functionality used in this project is substantially similar between the two versions, this change does not affect the overall objectives of the lab. However, if I were to start over this lab, I would use Windows Server 2025 as Kerberoasting worked successfully in that version while it did not work on Windows Server 2025
+> ⚠️ Implementation Note: The majority of this lab was completed using Windows Server 2025 Evaluation. During the development of the `kali` attack demonstrations, the Domain Controller was switched to Windows Server 2022 Evaluation, as the Kerberos attack demonstration was successfully performed in that environment. The rest of the lab remains based on Windows Server 2025. Since the Active Directory functionality used in this project is substantially similar between the two versions, this change does not affect the overall objectives of the lab. However, if I were to build this lab again, I would use Windows Server 2022, as the Kerberoasting demonstration worked successfully in that version but was not successfully reproduced on Windows Server 2025
 
 ### Operating Systems
 
