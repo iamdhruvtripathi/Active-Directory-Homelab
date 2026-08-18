@@ -132,7 +132,7 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/1ac0a50d-808a-41eb-9525-a0babc2a260a" />
 </p>
 
-- We can clearly see that my Kali Linux VM (`10.10.10.20`) had `Alisha`'s credentials and used them to log into the VM via RDP, making it appear as though `Alisha` had logged in herself. This represents inital access through the use of valid credentials over RDP
+- We can clearly see that my Kali Linux VM (`10.10.10.20`) had Alisha's credentials and used them to log into the VM via RDP, making it appear as though Alisha had logged in herself. The corresponding Windows logon event shows Logon Type `10` (RemoteInteractive), which indicates that the account authenticated through a remote interactive session such as RDP. This represents initial access through the use of valid credentials over RDP
 
 ## What is Kerberoasting?
 - Normally, when a user or service authenticates to a Kerberos-protected service, the client first obtains a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). When the client wants to access a particular service, it sends a `TGS-REQ` to the KDC requesting a service ticket for that service's Service Principal Name (SPN). The KDC returns a `TGS-REP` containing a service ticket. This ticket includes information encrypted with the password-derived key of the account associated with the SPN, allowing the service to verify and authenticate the request
