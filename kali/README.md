@@ -99,6 +99,7 @@ impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 ## Defense Best Practices for `AS-REP Roasting`
 - To defend against AS-REP Roasting, ensure Kerberos pre-authentication is enabled for all accounts unless there is a documented exception. Enforce strong, unique passwords so that even if an AS-REP is captured, offline cracking is difficult. Prefer AES encryption over legacy RC4 where possible and regularly audit accounts for weak Kerberos configurations. Finally, monitor Event ID `4768` for unusual requests, especially those with `Pre_Authentication_Type = 0`, and investigate suspicious source IPs
 
+## RDP
 - Now before I move onto the next topic, as an attacker I now know `Alisha`'s username and password, so we can login remotely into her account using RDP but first I needed to enable `Remote Desktop` on the computer
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8baa088d-5c62-4d83-b796-7a880b00d939" />
