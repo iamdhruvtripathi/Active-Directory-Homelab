@@ -1,4 +1,4 @@
-# Kali Linux
+<img width="1512" height="831" alt="image" src="https://github.com/user-attachments/assets/326a508e-07fc-4b7e-ad0b-b68b85805a38" /># Kali Linux
 - Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. I began with `AS-REP Roasting`, `Kerberoasting`, `Password Spraying` and `Golden Tickets` attacks
 
 ### Setting up Kali Linux
@@ -164,13 +164,81 @@ Set-ADUser -Identity "svc_sql" -ServicePrincipalNames @{Add="MSSQLSvc/db01.homel
 
 - Now, in Splunk, we can detect this attack. The first part is detecting the Initial Ticket Request in Splunk
 ```
-index=win_security host="*DC01*" EventCode=4769 ServiceName="svc_sql"
-| eval Encryption = case(TicketEncryptionType=="0x17", "RC4-HMAC (Weak/Roasting)", TicketEncryptionType=="0x12", "AES-256", TicketEncryptionType=="0x11", "AES-128", 1=1, TicketEncryptionType)
-| table _time, TargetUserName, ServiceName, ClientAddress, TicketOptions, Encryption, Status
+index=main EventCode=4769
 ```
+- We can see the evidence of Kerberoasting here capture in this log
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2d6ab10d-4c18-4625-bbba-645ccc71e7f5" />
+</p>
+
+- Looking at the Splunk log, we can start piecing together what happened. Searching for Event ID `4769`, we can see that the account `Alisha` requested a TGS ticket for the `svc_sql` service account from the Kali Linux machine (`10.10.10.20`). The `Ticket_Encryption_Type` is `0x17`, which corresponds to RC4-HMAC and is commonly associated with Kerberoasting because it can be cracked offline more easily than AES-128 (`0x11`) or AES-256 (`0x12`). The `Failure_Code` is `0x0`, confirming that the ticket request was successful
+
+- We can turn this into a neat table as well
+```
+index=main EventCode=4769 Service_Name!="*$" Ticket_Encryption_Type="0x17" Failure_Code="0x0"
+| eval src_ip = replace(Client_Address, "::ffff:", "")
+| stats count earliest(_time) as first_seen latest(_time) as last_seen values(Service_Name) as targets by Account_Name, src_ip, Ticket_Encryption_Type
+| eval Encryption = "RC4-HMAC (Downgrade/Roast)"
+| convert ctime(first_seen) ctime(last_seen)
+| table first_seen, last_seen, Account_Name, src_ip, targets, Encryption, count
+```
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f1130516-e116-4ac5-82e7-7cea747e6693" />
+</p>
+
+- Now, an attacker isn't going to stop after cracking the password. The next step would most likely be to use the recovered credentials to authenticate against `DC01`, in this case over SMB. As we can see below, the authentication was successful
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/560f2dc6-0bbc-4aa6-b0cc-08262b33fa65" />
+</p>
+
+- To confirm this activity from the defender's perspective, we can then turn to Splunk and look for the corresponding successful logon event. By searching for Event ID `4624`, we can identify the `svc_sql` account authenticating over the network from the Kali machine
+```
+index=main EventCode=4624 (Target_User_Name="svc_sql" OR Account_Name="svc_sql")
+| eval src_ip = replace(IpAddress, "::ffff:", "")
+| eval LogonTypeDesc = case(
+    Logon_Type==2, "Interactive (Console)",
+    Logon_Type==3, "Network (SMB/RPC)",
+    Logon_Type==10, "Remote Interactive (RDP)",
+    1=1, "Other (".Logon_Type.")"
+  )
+| table _time, Target_User_Name, src_ip, Workstation_Name, Logon_Type, LogonTypeDesc, Authentication_Package, Process_Name
+```
+- This query searches for successful `4624` logons involving the `svc_sql` account. It cleans up the source IP, identifies the logon type (with Type `3` being a network/SMB logon), and displays the key details such as the source IP, workstation, authentication method, and process used
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b0c49aa7-856c-48b0-bb66-a29d337a3f5a" />
+</p>
+
+- With the `svc_sql` credentials now confirmed, the next step is to see what resources the account can access over SMB. From the attacker’s perspective, this means enumerating the available network shares and their permissions. We can then switch back to Splunk to detect this activity and identify which shares the compromised account accessed
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/87871497-f372-410c-9f14-6b47bf61c419" />
+</p>
+
+- The NetExec output shows that `svc_sql` successfully authenticated to DC01 and enumerated its SMB shares. The account does not have administrative access to `ADMIN$` or `C$`, but it does have `READ` access to `NETLOGON` and `SYSVOL`, giving the attacker an opportunity to inspect domain scripts and configuration files for exposed credentials or other sensitive information
+
+- When NetExec runs the `--shares` command, it checks each SMB share to determine what permissions `svc_sql` has. In this case, NetExec tested the `SYSVOL` share and confirmed that the account has `READ` access. We can verify this activity in Splunk by looking at Event ID `5140`, which shows that the SYSVOL share was accessed during the permission check
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/601afdab-9e91-4d23-b17c-e8ef927562d1" />
+</p>
+
+- The same process occurs for the `NETLOGON` and `IPC$` shares. NetExec tests each share individually to determine what access `svc_sql` has, and Windows logs these checks as Event ID `5140` in Splunk. In our logs, `NETLOGON` and `IPC$` were also accessed during the enumeration, confirming that NetExec checked the permissions of each available SMB share
+
+<p align="center">
+<img width="1512" height="827" alt="image" src="https://github.com/user-attachments/assets/8bf09407-4961-452a-bf5b-2f8310c0e71b" />
+</p>
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/79cf4041-42bf-4a5f-bbd1-2b77db9394ea" />
+</p>
+
+## Defense Best Practices for `Kerberoasting`
+
+- To defend against Kerberoasting, use gMSAs where possible so service account passwords are automatically managed and rotated. Disable RC4-HMAC and prefer AES-128/AES-256 for Kerberos authentication. For legacy service accounts, use long, complex passwords and apply least privilege to limit what the account can access. Finally, monitor Event ID `4769` for unusual TGS requests, especially requests for non-machine accounts using RC4 (`0x17`), and correlate them with Event ID `4624` and `5140` to detect the use of compromised credentials
 
 <!--
-
 ## What is `Password Spraying`
 Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
 
