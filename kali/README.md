@@ -140,6 +140,35 @@ xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /d
 
 - In a Kerberoasting attack, an attacker who has a valid domain account requests service tickets for accounts that have registered SPNs. The KDC normally allows authenticated users to request these tickets as part of normal Kerberos functionality. The attacker can capture the returned service ticket and extract the encrypted portion associated with the service account. Because this portion is encrypted using a key derived from the service account's password, the attacker can perform an offline brute-force or dictionary attack against it. For each password guess, the attacker derives the corresponding key and attempts to verify or decrypt the captured ticket data. If the guess produces the expected result, the service account's password has been recovered
 
+- First thing to do was create a target user and assign an SPN using PowerShell
+```
+New-ADUser -Name "svc_sql" -AccountPassword(ConvertTo-SecureString "password123" -AsPlainText -Force) -Enabled $true
+```
+```
+Set-ADUser -Identity "svc_sql" -ServicePrincipalNames @{Add="MSSQLSvc/db01.homelab.local:1433"}
+```
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f7ea35c7-0c21-479d-a5b9-620a33effa3f" />
+</p>
+
+- Now what we can do is use Impacket to request the service ticket and retrieve the Kerberoastable hash and we can also use the user that we already have (`Alisha`'s account)
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/0066dd91-c8bd-4c10-881b-0636e07f70a8" />
+</p>
+
+- When we feed this into John, it instantly cracks the password, giving us the credentials for the account associated with the SPN
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/042219dc-2684-4d6a-855a-8eeffe9ba548" />
+</p>
+
+- Now, in Splunk, we can detect this attack. The first part is detecting the Initial Ticket Request in Splunk
+```
+index=win_security host="*DC01*" EventCode=4769 ServiceName="svc_sql"
+| eval Encryption = case(TicketEncryptionType=="0x17", "RC4-HMAC (Weak/Roasting)", TicketEncryptionType=="0x12", "AES-256", TicketEncryptionType=="0x11", "AES-128", 1=1, TicketEncryptionType)
+| table _time, TargetUserName, ServiceName, ClientAddress, TicketOptions, Encryption, Status
+```
+
 <!--
 
 ## What is `Password Spraying`
