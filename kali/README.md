@@ -320,7 +320,7 @@ impacket-ticketer -aesKey <aesKey> -domain-sid <domain-sid> -domain homelab.loca
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/27fb61d6-7b71-414f-917b-42d0e11dbf60" />
 </p>
 
-- We can load the forged ticket into our session where this tells Kereberos aware tools to use this ticket file for authentication instead of asking for a password
+- We can load the forged ticket into our session where this tells Kerberos aware tools to use this ticket file for authentication instead of asking for a password
 ```
 export KRB5CCNAME=administrator.ccache
 ```
