@@ -1,5 +1,3 @@
-🚧 _I am going to add some new content to this lab (coming soon)_ 🚧
-
 # Active-Directory Homelab
 
 <p align="center">
