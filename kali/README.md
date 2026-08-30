@@ -166,7 +166,7 @@ Set-ADUser -Identity "svc_sql" -ServicePrincipalNames @{Add="MSSQLSvc/db01.homel
 ```
 index=main EventCode=4769
 ```
-- We can see the evidence of Kerberoasting here capture in this log
+- We can see the evidence of Kerberoasting here captured in this log
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/2d6ab10d-4c18-4625-bbba-645ccc71e7f5" />
 </p>
