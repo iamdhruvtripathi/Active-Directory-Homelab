@@ -227,7 +227,7 @@ index=main EventCode=4624 (Target_User_Name="svc_sql" OR Account_Name="svc_sql")
 - The same process occurs for the `NETLOGON` and `IPC$` shares. NetExec tests each share individually to determine what access `svc_sql` has, and Windows logs these checks as Event ID `5140` in Splunk. In our logs, `NETLOGON` and `IPC$` were also accessed during the enumeration, confirming that NetExec checked the permissions of each available SMB share
 
 <p align="center">
-<img width="1512" height="827" alt="image" src="https://github.com/user-attachments/assets/8bf09407-4961-452a-bf5b-2f8310c0e71b" />
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/8bf09407-4961-452a-bf5b-2f8310c0e71b" />
 </p>
 
 <p align="center">
