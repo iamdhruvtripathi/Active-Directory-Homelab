@@ -285,7 +285,6 @@ go build -o kerbrute
 
 - Enforce strong, unique passwords and block common passwords such as `welcome1`. Use MFA where possible to prevent stolen credentials from being used. Configure account lockout/smart lockout policies to limit repeated attempts and restrict access to Domain Controllers through network segmentation. Finally, monitor Event ID `4771` for repeated `0x18` failures, especially when one source IP targets multiple accounts, and correlate these with successful `4768` or `4624` events
 
-<!--
 ## What is a `Golden Ticket`
 
 - A Golden Ticket attack is a post exploitation attack against Kerberos authentication in Active Directory that allows an attacker to forge a valid Ticket Granting Ticket (TGT) and impersonate any user in the domain
@@ -334,4 +333,3 @@ impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
 </p>
 
 - Above, the golden ticket forges a Kerberos Ticket Granting Ticket (`TGT`) that allows an attacker to authenticate as a privileged user, such as a Domain Administrator. We used the tool `smbexec` where when it is executed, it presents the forged `TGT` to the Key Distribution Center (KDC), which issues a legitimate service ticket (`TGS`) for the target SMB (`CIFS`) service because the forged TGT appears valid. The tool then uses this TGS to authenticate to the SMB service on the target system. Since the impersonated account has administrative privileges, `smbexec` leverages built-in Windows administrative features, such as creating and starting a temporary service, to execute commands remotely and provide an interactive shell. Therefore, the Golden Ticket enables trusted authentication, while the shell is obtained through legitimate Windows remote administration mechanisms
-!-->
