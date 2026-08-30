@@ -1,4 +1,4 @@
-<img width="1512" height="831" alt="image" src="https://github.com/user-attachments/assets/326a508e-07fc-4b7e-ad0b-b68b85805a38" /># Kali Linux
+# Kali Linux
 - Now that we have built our own AD environment, we will assume the role of an attacker against our own domain. I began with `AS-REP Roasting`, `Kerberoasting`, `Password Spraying` and `Golden Tickets` attacks
 
 ### Setting up Kali Linux
