@@ -238,7 +238,6 @@ index=main EventCode=4624 (Target_User_Name="svc_sql" OR Account_Name="svc_sql")
 
 - To defend against Kerberoasting, use gMSAs where possible so service account passwords are automatically managed and rotated. Disable RC4-HMAC and prefer AES-128/AES-256 for Kerberos authentication. For legacy service accounts, use long, complex passwords and apply least privilege to limit what the account can access. Finally, monitor Event ID `4769` for unusual TGS requests, especially requests for non-machine accounts using RC4 (`0x17`), and correlate them with Event ID `4624` and `5140` to detect the use of compromised credentials
 
-<!--
 ## What is `Password Spraying`
 Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
 
@@ -268,6 +267,23 @@ go build -o kerbrute
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/16752e67-6ba0-421d-b1e4-8f9abe6eb482" />
 </p>
+
+- When `alisha@homelab.local:welcome1` succeeded, we can detect the successful authentication in Splunk using Event ID `4768`. This shows that the KDC issued a valid TGT (Ticket Granting Ticket) for the alisha account, confirming that the password spraying attempt was successful
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/41294894-e93c-45c5-bd33-46ce7ee2a260" />
+</p>
+
+- When the password spraying attempt failed against the `Administrator` account, we can detect it in Splunk using Event ID `4771`. The `Failure_Code` of `0x18` indicates that the password was incorrect, while the `Client_Address` of `10.10.10.20` identifies the Kali machine as the source of the failed authentication attempt
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b0a0a0a3-87af-45df-9cb3-f1f42b3751b1" />
+</p>
+
+
+## Defense Best Practices for `Kerberos Password Spraying`
+
+- Enforce strong, unique passwords and block common passwords such as `welcome1`. Use MFA where possible to prevent stolen credentials from being used. Configure account lockout/smart lockout policies to limit repeated attempts and restrict access to Domain Controllers through network segmentation. Finally, monitor Event ID `4771` for repeated `0x18` failures, especially when one source IP targets multiple accounts, and correlate these with successful `4768` or `4624` events
 
 <!--
 ## What is a `Golden Ticket`
