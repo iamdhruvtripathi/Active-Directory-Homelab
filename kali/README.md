@@ -332,7 +332,7 @@ impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/906c8119-dd61-4e74-8749-7e3f472d26ab" />
 </p>
 
-- Now, we can detect this attack by looking for Event ID `4769` (TGS requests) without a preceding Event ID `4768` (TGT request). In normal Active Directory operations, a user must first request a TGT (Event ID `4768`) before requesting a Service Ticket (TGS). However, with a Golden Ticket, the attacker presents the forged TGT directly to the Domain Controller, bypassing the normal TGT request process. This creates an orphan TGS per se, where an Event ID `4769` appears without a corresponding Event ID `4768`
+- Now, we can detect this attack by looking for Event ID `4769` (TGS requests) without a preceding Event ID `4768` (TGT request). In normal Active Directory operations, a user must first request a TGT (Event ID `4768`) before requesting a Service Ticket (TGS). However, with a Golden Ticket, the attacker presents the forged TGT directly to the Domain Controller, bypassing the normal TGT request process. This can create an apparent orphan TGS, where an Event ID `4769` appears without a corresponding Event ID 4768 being observed for the same user and source
 
 ```
 index=main (EventCode=4768 OR EventCode=4769)
@@ -353,7 +353,7 @@ index=main (EventCode=4768 OR EventCode=4769)
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a4f75f08-0007-41ee-8108-dd51bbbcdd33" />
 </p>
 
-- This flags any account that is requesting service access across the network whose initial TGT was never issued by the Domain Controller
+- This identifies accounts and source IPs that generated TGS requests without a corresponding TGT request being observed
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6bc01f4c-dd78-4a1e-934e-48f8fc38d12d" />
