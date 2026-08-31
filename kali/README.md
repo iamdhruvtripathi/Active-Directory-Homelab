@@ -281,7 +281,7 @@ go build -o kerbrute
 </p>
 
 
-## Defense Best Practices for `Kerberos Password Spraying`
+## Defense Best Practices for `Password Spraying` attacks
 
 - Enforce strong, unique passwords and block common passwords such as `welcome1`. Use MFA where possible to prevent stolen credentials from being used. Configure account lockout/smart lockout policies to limit repeated attempts and restrict access to Domain Controllers through network segmentation. Finally, monitor Event ID `4771` for repeated `0x18` failures, especially when one source IP targets multiple accounts, and correlate these with successful `4768` or `4624` events
 
