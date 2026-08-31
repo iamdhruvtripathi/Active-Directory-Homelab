@@ -122,7 +122,7 @@ nc -zvw 3 10.10.10.50 3389
 
 - Now, we can remotely access her computer via RDP from Kali and BOOM!, we are in
 ```
-xfreerdp /v:10.10.10.10 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /dynamic-resolution
+xfreerdp /v:10.10.10.50 /d:homelab.local /u:alisha /p:"welcome1" /cert:ignore /dynamic-resolution
 ```
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/0826fec8-37f2-42b2-be9b-211f24c509f7" />
