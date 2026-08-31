@@ -241,7 +241,8 @@ index=main EventCode=4624 (Target_User_Name="svc_sql" OR Account_Name="svc_sql")
 ## What is `Password Spraying`
 Password spraying is a cyberattack in which an attacker tries a small number of common passwords (such as `"Spring2026!"` or `"Password123"`) across many different user accounts instead of attempting many passwords on a single account. This helps avoid account lockouts while increasing the chances of finding accounts that use weak or reused passwords
 
-- In Kali, I first created a userlist containing the passwords for the domains accounts. For learning purposes, one of them I already know which is `welcome1` for `Alisha`'s account
+- In Kali, I first created a `users.txt` file containing the usernames I wanted to test. For learning purposes, I already knew that Alisha's password was `welcome1`
+
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/08e2d872-c8de-47eb-ac43-7ed801a71c90" />
 </p>
