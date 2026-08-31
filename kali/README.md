@@ -362,6 +362,10 @@ index=main (EventCode=4768 OR EventCode=4769)
 
 - While the orphan TGS pattern is a useful indicator, we can also look at what happened after the forged ticket was used. Event ID `7045` shows that temporary services with random names, such as `kOpQmldp` and `oqwvcyTL`, were created on DC01. This is consistent with how Impacket's smbexec works when running commands remotely. The event also shows commands such as `whoami` and `dir` being written to a temporary batch file, executed, and their output redirected to a temporary file under the `C$` share before the batch file is deleted. This gives us strong evidence that smbexec was used to remotely execute commands after the forged ticket was accepted
 
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bce4f41c-9b4a-471e-86c1-2853603353fb" />
+</p>
+
 ```
 index=main EventCode=4672 (Account_Name="Administrator" OR Target_User_Name="Administrator")
 | eval User = coalesce(Account_Name, Target_User_Name)
@@ -369,10 +373,6 @@ index=main EventCode=4672 (Account_Name="Administrator" OR Target_User_Name="Adm
 | table _time, host, User, Security_ID, Privileges
 | sort - _time
 ```
-
-<p align="center">
-<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/bce4f41c-9b4a-471e-86c1-2853603353fb" />
-</p>
 
 - We can also correlate this activity with Event ID `4672`, which shows that the Administrator account (RID 500) was assigned special administrative privileges during the logon session on DC01. While Event ID `4672` does not by itself indicate a Golden Ticket, correlating it with the suspicious Kerberos activity and subsequent smbexec execution strengthens the evidence that the privileged session was used to execute commands on the Domain Controller
 
