@@ -289,7 +289,7 @@ go build -o kerbrute
 
 - A Golden Ticket attack is a post exploitation attack against Kerberos authentication in Active Directory that allows an attacker to forge a valid Ticket Granting Ticket (TGT) and impersonate any user in the domain
 
-- The attack begins after an attacker has compromised a Domain Controller (or otherwise obtained the password hash of the `KRBTGT` account). Since every Kerberos TGT is signed using the `KRBTGT` account's secret key, possession of this hash allows the attacker to create their own forged `TGT` with arbitrary user identities, group memberships (such as Domain Admins), and expiration times
+- The attack begins after an attacker has compromised a Domain Controller (or otherwise obtained the password hash or other secret key material of the `KRBTGT` account). Since the `KRBTGT` account's key is used to cryptographically protect TGTs, possession of this key allows the attacker to create their own forged TGT with arbitrary user identities, group memberships (such as Domain Admins), and expiration times
 
 - Instead of requesting an initial TGT from the Key Distribution Center (KDC), the attacker injects the forged TGT into their session and presents it to the KDC when requesting service tickets (`TGS-REQ`). Because the forged TGT is correctly signed with the `KRBTGT` key, the KDC considers it legitimate and issues valid service tickets (`TGS-REP`) for requested services. This enables the attacker to authenticate as virtually any user and gain persistent, domain-wide access until the `KRBTGT` account password is reset twice
 
@@ -332,7 +332,7 @@ impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/906c8119-dd61-4e74-8749-7e3f472d26ab" />
 </p>
 
-- Now, we can detect this attack by looking for Event ID `4769` (TGS requests) without a preceding Event ID `4768` (TGT request). In normal Active Directory operations, a user must first request a TGT (Event ID `4768`) before requesting a Service Ticket (TGS). However, with a Golden Ticket, the attacker presents the forged TGT directly to the Domain Controller, bypassing the normal TGT request process. This can create an apparent orphan TGS, where an Event ID `4769` appears without a corresponding Event ID 4768 being observed for the same user and source
+- Now, we can hunt for potential Golden Ticket activity by looking for Event ID `4769` (TGS requests) without a corresponding Event ID `4768` (TGT request) for the same user and source. In normal Active Directory operations, a user must first request a TGT (Event ID `4768`) before requesting a Service Ticket (TGS). However, with a Golden Ticket, the attacker presents the forged TGT directly to the Domain Controller, bypassing the normal TGT request process. This can create an apparent orphan TGS, where an Event ID `4769` appears without a corresponding Event ID `4768` being observed for the same user and source
 
 ```
 index=main (EventCode=4768 OR EventCode=4769)
@@ -353,7 +353,7 @@ index=main (EventCode=4768 OR EventCode=4769)
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a4f75f08-0007-41ee-8108-dd51bbbcdd33" />
 </p>
 
-- This identifies accounts and source IPs that generated TGS requests without a corresponding TGT request being observed
+- This identifies accounts and source IPs that generated TGS requests without a corresponding TGT request being observed. While this does not prove that a Golden Ticket was used by itself, it is a useful detection signal that becomes much stronger when correlated with other activity
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6bc01f4c-dd78-4a1e-934e-48f8fc38d12d" />
@@ -365,7 +365,7 @@ index=main (EventCode=4768 OR EventCode=4769)
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/45dc63e3-6769-4ff0-abf7-5c5e11182e80" />
 </p>
 
-- We can also correlate this activity with Event ID `4672`, which shows that the forged Administrator account (RID 500) was given special administrative privileges on DC01 showing that the same privileged session was being used to execute commands on the Domain Controller
+- We can also correlate this activity with Event ID `4672`, which shows that the Administrator account (RID 500) was assigned special administrative privileges during the logon session on DC01. While Event ID `4672` does not by itself indicate a Golden Ticket, correlating it with the suspicious Kerberos activity and subsequent smbexec execution strengthens the evidence that the privileged session was used to execute commands on the Domain Controller
 
 ## Defense Best Practices for `Golden Ticket` attacks
 - To defend against Golden Ticket attacks, reset the krbtgt password twice with enough time for the changes to replicate across the domain. Protect Domain Controllers in a secure Tier 0 environment and use dedicated PAWs to reduce the risk of stolen credentials. Keep Domain Controllers fully patched with the latest Kerberos security updates, and place high-privilege admins in the Protected Users group for stronger protection. Finally, monitor Windows security events such as `4769`, `4624`, and `4672` for unusual ticket requests, network logons, and unexpected administrative privileges
