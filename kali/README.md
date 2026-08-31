@@ -365,7 +365,7 @@ index=main (EventCode=4768 OR EventCode=4769)
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/45dc63e3-6769-4ff0-abf7-5c5e11182e80" />
 </p>
 
-- We can also correlate this activity with Event ID `4672`, which shows that the forged Administrator account (RID 500) was given special administrative privileges on DC01. The timestamp matches the service installations we saw in Event ID `7045`, showing that the same privileged session was being used to execute commands on the Domain Controller
+- We can also correlate this activity with Event ID `4672`, which shows that the forged Administrator account (RID 500) was given special administrative privileges on DC01 showing that the same privileged session was being used to execute commands on the Domain Controller
 
 ## Defense Best Practices for `Golden Ticket` attacks
 - To defend against Golden Ticket attacks, reset the krbtgt password twice with enough time for the changes to replicate across the domain. Protect Domain Controllers in a secure Tier 0 environment and use dedicated PAWs to reduce the risk of stolen credentials. Keep Domain Controllers fully patched with the latest Kerberos security updates, and place high-privilege admins in the Protected Users group for stronger protection. Finally, monitor Windows security events such as `4769`, `4624`, and `4672` for unusual ticket requests, network logons, and unexpected administrative privileges
