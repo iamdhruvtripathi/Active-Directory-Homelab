@@ -104,41 +104,41 @@ The lab provides hands-on experience with enterprise Active Directory operations
 
 ## Red Team Exercises
 
-The following attacks were simulated against the lab environment from the Kali Linux attacker machine. All exercises were performed in an isolated, controlled environment for educational and defensive security purposes.
+The following attacks were simulated against the lab environment from the Kali Linux attacker machine. All exercises were performed in an isolated, controlled environment for educational and defensive security purposes
 
 ### Credential Attacks
 
 | Attack | Tool | Description |
 |--------|------|-------------|
-| **Password Spraying** | `kerbrute` | Tested common passwords across multiple domain accounts. |
-| **AS-REP Roasting** | `impacket-GetNPUsers` + John the Ripper | Retrieved and cracked an AS-REP hash from an account without Kerberos pre-authentication. |
-| **Kerberoasting** | Impacket + John the Ripper | Retrieved and cracked a service ticket for an account with an SPN. |
+| **Password Spraying** | `kerbrute` | Tested common passwords across multiple domain accounts |
+| **AS-REP Roasting** | `impacket-GetNPUsers` + John the Ripper | Retrieved and cracked an AS-REP hash from an account without Kerberos pre-authentication |
+| **Kerberoasting** | Impacket + John the Ripper | Retrieved and cracked a service ticket for an account with an SPN |
 
 ### Initial Access & Lateral Movement
 
 | Technique | Tool | Description |
 |----------|------|-------------|
-| **Valid Accounts / RDP** | `xfreerdp` | Used recovered credentials to access a workstation over RDP. |
-| **SMB Authentication** | `NetExec` / Impacket | Used recovered credentials to authenticate to the Domain Controller over SMB. |
-| **SMB Share Enumeration** | `NetExec` | Enumerated accessible SMB shares and permissions. |
+| **Valid Accounts / RDP** | `xfreerdp` | Used recovered credentials to access a workstation over RDP |
+| **SMB Authentication** | `NetExec` / Impacket | Used recovered credentials to authenticate to the Domain Controller over SMB |
+| **SMB Share Enumeration** | `NetExec` | Enumerated accessible SMB shares and permissions |
 
 ### Privilege Escalation & Persistence
 
 | Attack | Tool | Description |
 |--------|------|-------------|
-| **Credential Dumping** | `impacket-secretsdump` | Extracted domain credential hashes, including `krbtgt`. |
-| **Golden Ticket** | `impacket-ticketer` | Forged a Kerberos TGT using the `krbtgt` key. |
-| **Remote Command Execution** | `impacket-smbexec` | Used the forged ticket to execute commands remotely on the DC. |
+| **Credential Dumping** | `impacket-secretsdump` | Extracted domain credential hashes, including `krbtgt` |
+| **Golden Ticket** | `impacket-ticketer` | Forged a Kerberos TGT using the `krbtgt` key |
+| **Remote Command Execution** | `impacket-smbexec` | Used the forged ticket to execute commands remotely on the DC |
 
 ### Defensive Lessons Learned
 
 | Attack | Key Telemetry | Defensive Lesson |
 |--------|---------------|------------------|
-| **Password Spraying** | `4771`, `4768` | Enforce strong passwords and monitor repeated authentication failures. |
-| **AS-REP Roasting** | `4768` | Enable Kerberos pre-authentication and monitor `Pre_Authentication_Type = 0`. |
-| **Kerberoasting** | `4769` | Prefer AES, use strong service passwords, and monitor RC4 (`0x17`) TGS requests. |
-| **Valid Accounts / RDP** | `4624` | Restrict RDP and monitor unexpected Logon Type `10` activity. |
-| **SMB Enumeration** | `4624`, `5140` | Restrict SMB access and monitor access to sensitive shares. |
-| **Credential Dumping** | Privileged activity | Protect Domain Controllers and restrict privileged access. |
-| **Golden Ticket** | `4769`, `4672`, `7045` | Monitor anomalous Kerberos activity and privileged sessions; reset `krbtgt` twice after compromise. |
-| **Remote Command Execution** | `7045`, `4672` | Investigate unexpected service creation and privileged remote execution. |
+| **Password Spraying** | `4771`, `4768` | Enforce strong passwords and monitor repeated authentication failures |
+| **AS-REP Roasting** | `4768` | Enable Kerberos pre-authentication and monitor `Pre_Authentication_Type = 0` |
+| **Kerberoasting** | `4769` | Prefer AES, use strong service passwords, and monitor RC4 (`0x17`) TGS requests |
+| **Valid Accounts / RDP** | `4624` | Restrict RDP and monitor unexpected Logon Type `10` activity |
+| **SMB Enumeration** | `4624`, `5140` | Restrict SMB access and monitor access to sensitive shares |
+| **Credential Dumping** | Privileged activity | Protect Domain Controllers and restrict privileged access |
+| **Golden Ticket** | `4769`, `4672`, `7045` | Monitor anomalous Kerberos activity and privileged sessions; reset `krbtgt` twice after compromise |
+| **Remote Command Execution** | `7045`, `4672` | Investigate unexpected service creation and privileged remote execution |
