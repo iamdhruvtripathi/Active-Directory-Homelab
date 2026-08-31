@@ -334,3 +334,28 @@ impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
 
 - Above, the golden ticket forges a Kerberos Ticket Granting Ticket (`TGT`) that allows an attacker to authenticate as a privileged user, such as a Domain Administrator. We used the tool `smbexec` where when it is executed, it presents the forged `TGT` to the Key Distribution Center (KDC), which issues a legitimate service ticket (`TGS`) for the target SMB (`CIFS`) service because the forged TGT appears valid. The tool then uses this TGS to authenticate to the SMB service on the target system. Since the impersonated account has administrative privileges, `smbexec` leverages built-in Windows administrative features, such as creating and starting a temporary service, to execute commands remotely and provide an interactive shell. Therefore, the Golden Ticket enables trusted authentication, while the shell is obtained through legitimate Windows remote administration mechanisms
 
+- Now, we can detect this attack by looking for Event ID `4769` (TGS requests) without a preceding Event ID `4768` (TGT request). In normal Active Directory operations, a user must first request a TGT (Event ID `4768`) before requesting a Service Ticket (TGS). However, with a Golden Ticket, the attacker presents the forged TGT directly to the Domain Controller, bypassing the normal TGT request process. This creates an orphan TGS per se, where an Event ID `4769` appears without a corresponding Event ID `4768`
+
+```
+index=main (EventCode=4768 OR EventCode=4769)
+| eval user = lower(coalesce(Target_User_Name, Account_Name))
+| eval user = replace(user, "@.*", "")
+| eval src_ip = coalesce(Client_Address, IpAddress, Source_Address)
+| eval src_ip = replace(src_ip, "::ffff:", "")
+| stats 
+    count(eval(EventCode=4768)) as tgt_requests, 
+    count(eval(EventCode=4769)) as tgs_requests, 
+    values(Service_Name) as services_accessed 
+    by user, src_ip
+| where tgt_requests == 0 AND tgs_requests > 0
+| table user, src_ip, tgt_requests, tgs_requests, services_accessed
+```
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/a4f75f08-0007-41ee-8108-dd51bbbcdd33" />
+</p>
+
+- This flags any account that is requesting service access across the network whose initial TGT was never issued by the Domain Controller
+
+## Defense Best Practices for `Golden Ticket` attacks
+- To defend against Golden Ticket attacks, organizations should reset the `krbtgt` password twice with enough time between resets to invalidate existing forged Kerberos tickets, protect Domain Controllers through strict administrative tiering and dedicated Privileged Access Workstations, keep DCs fully patched to enforce stronger Kerberos PAC validation, place high-privilege accounts in the Protected Users group to reduce credential exposure and enforce stronger encryption, and use continuous SIEM monitoring to detect suspicious Kerberos activity and unusual privileged logons
