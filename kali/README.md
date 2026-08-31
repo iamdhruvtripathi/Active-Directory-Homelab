@@ -268,7 +268,7 @@ go build -o kerbrute
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/16752e67-6ba0-421d-b1e4-8f9abe6eb482" />
 </p>
 
-- When `alisha@homelab.local:welcome1` succeeded, we can detect the successful authentication in Splunk using Event ID `4768`. This shows that the KDC issued a valid TGT (Ticket Granting Ticket) for the alisha account, confirming that the password spraying attempt was successful
+- When `alisha@homelab.local:welcome1` succeeded, we could observe a successful Kerberos authentication in Splunk through Event ID `4768`. Because the event originated from the Kali VM and occurred during the password-spraying activity, it provides evidence that the credential guess was successful
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/41294894-e93c-45c5-bd33-46ce7ee2a260" />
@@ -298,7 +298,7 @@ go build -o kerbrute
 ```
 impacket-secretsdump homelab.local/administrator:AdminPassword@10.10.10.10
 ```
-- We were successfully able to dump the `krbtgt`'s hash as highlighted in blue. We specifically need the AES key
+- We were successfully able to retrieve the `krbtgt` account's key material, as highlighted in blue. For this demonstration, I will use the `KRBTGT AES` key with Impacket's ticketer to forge the TGT
 
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b7438446-7a82-47e2-9840-cfb412ec2698" />
@@ -332,8 +332,6 @@ impacket-smbexec -k -no-pass homelab.local/administrator@dc01.homelab.local
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/906c8119-dd61-4e74-8749-7e3f472d26ab" />
 </p>
 
-- Above, the golden ticket forges a Kerberos Ticket Granting Ticket (`TGT`) that allows an attacker to authenticate as a privileged user, such as a Domain Administrator. We used the tool `smbexec` where when it is executed, it presents the forged `TGT` to the Key Distribution Center (KDC), which issues a legitimate service ticket (`TGS`) for the target SMB (`CIFS`) service because the forged TGT appears valid. The tool then uses this TGS to authenticate to the SMB service on the target system. Since the impersonated account has administrative privileges, `smbexec` leverages built-in Windows administrative features, such as creating and starting a temporary service, to execute commands remotely and provide an interactive shell. Therefore, the Golden Ticket enables trusted authentication, while the shell is obtained through legitimate Windows remote administration mechanisms
-
 - Now, we can detect this attack by looking for Event ID `4769` (TGS requests) without a preceding Event ID `4768` (TGT request). In normal Active Directory operations, a user must first request a TGT (Event ID `4768`) before requesting a Service Ticket (TGS). However, with a Golden Ticket, the attacker presents the forged TGT directly to the Domain Controller, bypassing the normal TGT request process. This creates an orphan TGS per se, where an Event ID `4769` appears without a corresponding Event ID `4768`
 
 ```
@@ -356,6 +354,18 @@ index=main (EventCode=4768 OR EventCode=4769)
 </p>
 
 - This flags any account that is requesting service access across the network whose initial TGT was never issued by the Domain Controller
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/6bc01f4c-dd78-4a1e-934e-48f8fc38d12d" />
+</p>
+
+- While the orphan TGS pattern is a useful indicator, we can also look at what happened after the forged ticket was used. Event ID `7045` shows that temporary services with random names, such as `kOpQmldp` and `oqwvcyTL`, were created on DC01. This is consistent with how Impacket's smbexec works when running commands remotely. The event also shows commands such as `whoami` and `dir` being written to a temporary batch file, executed, and their output redirected to a temporary file under the `C$` share before the batch file is deleted. This gives us strong evidence that smbexec was used to remotely execute commands after the forged ticket was accepted
+
+<p align="center">
+<img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/45dc63e3-6769-4ff0-abf7-5c5e11182e80" />
+</p>
+
+- We can also correlate this activity with Event ID `4672`, which shows that the forged Administrator account (RID 500) was given special administrative privileges on DC01. The timestamp matches the service installations we saw in Event ID `7045`, showing that the same privileged session was being used to execute commands on the Domain Controller
 
 ## Defense Best Practices for `Golden Ticket` attacks
 - To defend against Golden Ticket attacks, reset the krbtgt password twice with enough time for the changes to replicate across the domain. Protect Domain Controllers in a secure Tier 0 environment and use dedicated PAWs to reduce the risk of stolen credentials. Keep Domain Controllers fully patched with the latest Kerberos security updates, and place high-privilege admins in the Protected Users group for stronger protection. Finally, monitor Windows security events such as `4769`, `4624`, and `4672` for unusual ticket requests, network logons, and unexpected administrative privileges
