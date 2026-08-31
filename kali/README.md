@@ -90,7 +90,7 @@ impacket-GetNPUsers homelab.local/alisha -dc-ip 10.10.10.10 -no-pass
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/b46f479f-3933-4689-9939-81b9549f465b" />
 </p>
 
-- Now, as a detective we also need to see what happened. If we take a look into Splunk searching for the Event ID `4768`, we can see indeed it was our Kali linux machine (IP address `10.10.10.20`) that requested the TGT. The account name was indeed `Alisha`. Furthermore, we can see `Pre_Authentication_Type` is set to `0` which means that Kerberos pre-authentication was explicitly bypassed or not required. Standard Kerberos authentication uses type `2` (`PA-ENC-TIMESTAMP`). The `Ticket_Encryption_Type` is set to `0x17` which corresponds to `RC4-HMAC`. This specific hashing structure is easier to crack offline compared to AES-128 (`0x11`) or AES-256 (`0x12`)
+- Now, as a detective we also need to see what happened. If we take a look into Splunk searching for the Event ID `4768`, we can see indeed it was our Kali linux machine (IP address `10.10.10.20`) that requested the TGT. The account name was indeed `Alisha`. Furthermore, we can see `Pre_Authentication_Type` is set to `0` which means that Kerberos pre-authentication was not required Standard Kerberos authentication uses type `2` (`PA-ENC-TIMESTAMP`). The `Ticket_Encryption_Type` is set to `0x17` which corresponds to `RC4-HMAC`. This specific hashing structure is easier to crack offline compared to AES-128 (`0x11`) or AES-256 (`0x12`)
   
 <p align="center">
 <img width="90%" height="90%" alt="image" src="https://github.com/user-attachments/assets/f55d592f-4fab-4ffe-a225-07d93a36b746" />
